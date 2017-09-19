@@ -189,6 +189,8 @@ public class Login extends javax.swing.JFrame {
             new Principal().setVisible(true);
             this.dispose();
         }else{
+            txt_senha.setText("");
+            txt_nome.setText("");
             JOptionPane.showMessageDialog(null,"Tente novamente, seu usúario ou senha estão incorretos");
         }
     }//GEN-LAST:event_btn_entrarActionPerformed
@@ -198,7 +200,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(null,"Enviamos um código de segurança para o email cadastrado,\n coloque esse código na senha");
+        //JOptionPane.showMessageDialog(null,"Enviamos um código de segurança para o email cadastrado,\n coloque esse código na senha");
+        new RecuperaSenha().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
