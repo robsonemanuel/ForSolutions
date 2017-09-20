@@ -59,6 +59,10 @@ public class Produto {
     public void setData_entrada(String data_entrada) {
         this.data_entrada = data_entrada;
     }
+    
+    public String toString(){
+       return getDescricao();
+    }
  
  
 }

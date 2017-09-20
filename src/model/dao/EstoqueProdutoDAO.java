@@ -63,6 +63,33 @@ public class EstoqueProdutoDAO {
         return produtos;
     }
     
+     public List<Produto> readOrderByAsc(){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       List<Produto> produtos = new ArrayList<>();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM produto ORDER BY descricao");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("idproduto"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+                produto.setValor(rs.getFloat("valor"));
+                produto.setData_entrada(rs.getString("data_entrada"));
+                produtos.add(produto);
+       }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return produtos;
+    }
     public void update(Produto p){
        Connection con = ConnectionFactory.getConnection();
        PreparedStatement stmt = null;
