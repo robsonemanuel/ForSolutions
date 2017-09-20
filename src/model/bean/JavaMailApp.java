@@ -15,6 +15,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 
+
+//Modulo de Envio de email para o usuario que irá recuperar a senha.
+
 public class JavaMailApp
 {
      public int newsenha;

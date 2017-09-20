@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.JavaMailApp;
 
+//Modulo de recuperação de senha, onde gera o codigo que será a nova senha so usuario
+
 public class RecuperaSenhaDAO {
     
     public boolean ConfereEmail(String email,String cpf){
