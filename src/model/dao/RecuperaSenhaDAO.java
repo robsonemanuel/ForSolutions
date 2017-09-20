@@ -68,12 +68,13 @@ public class RecuperaSenhaDAO {
         String sen = hash.toString(5);
         
         sen = sen.substring(0,5);       
-        
+        String sim = "s";
          try {
 
-             stmt = con.prepareStatement("UPDATE login SET senha = ? WHERE idlogin = (SELECT idlogin FROM funcionario where cpf_funcionario=?)");
+             stmt = con.prepareStatement("UPDATE login SET senha = ?,senha_temporaria=? WHERE idlogin = (SELECT idlogin FROM funcionario where cpf_funcionario=?)");
              stmt.setString(1,sen);
-             stmt.setString(2,cpf);            
+             stmt.setString(2,sim);
+             stmt.setString(3,cpf);            
              stmt.executeUpdate();
              
             check = true;

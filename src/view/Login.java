@@ -35,11 +35,11 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txt_senha = new javax.swing.JTextField();
         btn_entrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btn_sair = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        txt_senha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,12 +56,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Senha:");
-
-        txt_senha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_senhaActionPerformed(evt);
-            }
-        });
 
         btn_entrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icons8-Enter-50.png"))); // NOI18N
         btn_entrar.setText("Entrar");
@@ -92,11 +86,11 @@ public class Login extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txt_nome, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txt_senha, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btn_entrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btn_sair, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txt_senha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -176,18 +170,23 @@ public class Login extends javax.swing.JFrame {
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nomeActionPerformed
-
-    private void txt_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_senhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_senhaActionPerformed
-
+    public static String identificador = null;
+    public static String identificador_user = null;
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         LoginDAO dao = new LoginDAO();
         String login = txt_nome.getText();
         String senha = txt_senha.getText();
+        
         if(dao.checkLogin(login, senha)){
-            new Principal().setVisible(true);
-            this.dispose();
+            if(!(dao.VerificaNewSenha(login,senha))){
+                new Principal().setVisible(true);
+                this.dispose();
+            }else{
+                identificador = senha;
+                identificador_user= login;
+                new NovaSenha().setVisible(true);
+                this.dispose();
+            }
         }else{
             txt_senha.setText("");
             txt_nome.setText("");
@@ -249,6 +248,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_senha;
+    private javax.swing.JPasswordField txt_senha;
     // End of variables declaration//GEN-END:variables
 }
