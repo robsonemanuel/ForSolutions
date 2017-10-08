@@ -10,12 +10,16 @@ public class Orcamento extends Cliente {
     public Orcamento() {
     }
 
-    public Orcamento(float valorServico, float valorPeca, Date data, String cpf, String email, String nome, String logradouro, int numero, String telefone, int id, String celular, String cnpj) {
-        super(cpf, email, nome, logradouro, numero, telefone, id, celular, cnpj);
+    public Orcamento(float valorServico, float valorPeca, Date data, String cpf, String email, String nome, String logradouro, String bairro, String cep, String cidade, int numero, String telefone, int id, String celular, String cnpj, String estado) {
+        super(cpf, email, nome, logradouro, bairro, cep, cidade, numero, telefone, id, celular, cnpj, estado);
         this.valorServico = valorServico;
         this.valorPeca = valorPeca;
         this.data = data;
     }
+
+    
+
+   
 
     
     
