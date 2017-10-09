@@ -68,6 +68,7 @@ public class EstoqueProdutoDAO {
        PreparedStatement stmt = null;
        ResultSet rs = null;
        
+       
        List<Produto> produtos = new ArrayList<>();
         try {
             stmt = con.prepareStatement("SELECT * FROM produto ORDER BY descricao");

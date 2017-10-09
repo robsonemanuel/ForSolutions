@@ -1,10 +1,14 @@
 package view;
 
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.bean.Pagamento;
 import model.bean.Produto;
+import model.bean.VendaProduto;
 import model.dao.EstoqueProdutoDAO;
+import model.dao.VendaDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -558,25 +562,55 @@ public class Venda extends javax.swing.JFrame {
       float debito = ParseFloat(jtDebito.getText());
       float credito = ParseFloat(jtCredito.getText());
       float soma=0.0f;
+      String stringFormaPagamento = "";
+      
+      int vezes = 0;
       float total = ParseFloat(jTextTotal.getText());
       if(jCheckBox1.isSelected()){
       soma += dinheiro;
+      stringFormaPagamento = "Dinheiro";
       }
       if(jCheckBox3.isSelected()){
       soma += debito;
+      stringFormaPagamento += "Débito";
       }
       if(jCheckBox2.isSelected()){
+         stringFormaPagamento += "Crédito";
          if(jRadioButton1.isSelected()){
             soma+=credito;
+            vezes = 1;
          }else if(jRadioButton2.isSelected()){
            soma+=credito * 2;
+           vezes = 2;
          }else if(jRadioButton3.isSelected()){
            soma+=credito * 3;
+           vezes = 3;
          }
       }
       
      if(soma==total){
-       JOptionPane.showMessageDialog(null,"Tudo Ok");
+       Pagamento p = new Pagamento();
+       VendaDAO dao = new VendaDAO();
+       p.setValor(Float.parseFloat(jTextTotal.getText()));
+       p.setForma_pagamento(stringFormaPagamento);
+       p.setVezes(vezes);
+       dao.create(p);
+       
+       VendaProduto v = new VendaProduto();
+       for(int i=0; i<jtVendaProdutos.getRowCount(); i++){
+           String desc = jtVendaProdutos.getValueAt(i,0).toString();
+           float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,1).toString());
+           int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,2).toString());
+           v.setDescricao(desc);
+           v.setQuantidade(quantidade);
+           v.setValor(valor);
+           int resul;
+           resul = dao.readUltimoId();
+           v.setId_pagamento(resul);
+           dao.createVendaProduto(v);
+       }
+       
+       
      }
      if(soma<total){
         JOptionPane.showMessageDialog(null,"Valor informado menor que o total!!");
