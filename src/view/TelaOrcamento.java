@@ -1,6 +1,7 @@
 package view;
 
 import model.bean.Orcamento;
+import model.dao.OrcamentoDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,6 +24,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         
     }
 
+    ImprimeOrcamento imprime = new ImprimeOrcamento();
     Orcamento orcamento = new Orcamento();
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,8 +41,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         txtValPecas = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtValServico = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        txtDataOrcamento = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         txtValTotal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -50,6 +50,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtNcliente = new javax.swing.JTextField();
+        btnGravar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -77,16 +78,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Valor do serviço: ");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Data");
-
-        txtDataOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataOrcamentoActionPerformed(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Total: ");
@@ -112,6 +103,13 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nº");
 
+        btnGravar.setText("Gravar");
+        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGravarActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtNomeCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -121,8 +119,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jDesktopPane1.setLayer(txtValPecas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtValServico, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txtDataOrcamento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtValTotal, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -131,6 +127,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtNcliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -142,11 +139,13 @@ public class TelaOrcamento extends javax.swing.JFrame {
                         .addGap(252, 252, 252)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
+                        .addGap(94, 94, 94)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEnviarOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,10 +153,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtDataOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1)
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -190,11 +185,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,11 +210,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnviarOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
@@ -241,25 +233,54 @@ public class TelaOrcamento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnEnviarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarOrcamentoActionPerformed
-
-        String data = txtDataOrcamento.getText();
-        float valorServ =Float.parseFloat(txtValServico.getText());
-        float valorPec =Float.parseFloat(txtValPecas.getText());
-        String descri = txtDescricaoAnalise.getText();
-        String nome = txtNomeCliente.getText();
-        String tel = txtTelefoneCliente.getText();
+         String nome,telefone;
+        
         float total =Float.parseFloat(txtValTotal.getText());
 
+        if(imprime==null){
+            imprime = new ImprimeOrcamento();
+            imprime.setVisible(true);
+           nome= txtNomeCliente.getText();
+            txtNcliente.getText();
+            txtValServico.getText();
+            txtValPecas.getText();
+            txtValTotal.getText();
+            txtDescricaoAnalise.getText();
+            telefone = txtTelefoneCliente.getText();
+             imprime.transferiDados();
+        }else{
+            imprime.setVisible(true);
+            imprime.setState(ImprimeOrcamento.NORMAL);
+        }
     }//GEN-LAST:event_btnEnviarOrcamentoActionPerformed
 
-    private void txtDataOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataOrcamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataOrcamentoActionPerformed
+    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+       Orcamento orc = new Orcamento();
+       
+       
+        OrcamentoDAO orcDao =new  OrcamentoDAO();
+        
+        orc.setValorServico(Float.parseFloat(txtValServico.getText()));
+        orc.setValorPeca(Float.parseFloat(txtValPecas.getText()));
+        orc.setTelefone(txtTelefoneCliente.getText());
+        orc.setNome( txtNomeCliente.getText());
+        orc.setDescricao(txtDescricaoAnalise.getText());
+        
+       orcDao.save(orc);
+       limpaCampo();
+    }//GEN-LAST:event_btnGravarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+   public void limpaCampo(){
+       txtNomeCliente.setText("");
+       txtNcliente.setText("");
+       txtValServico.setText("");
+       txtValPecas.setText("");
+       txtValTotal.setText("");
+       txtDescricaoAnalise.setText("");
+       txtTelefoneCliente.setText("");
+   }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -301,12 +322,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviarOrcamento;
+    private javax.swing.JButton btnGravar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
@@ -314,7 +335,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtDataOrcamento;
     private javax.swing.JTextArea txtDescricaoAnalise;
     private javax.swing.JTextField txtNcliente;
     private javax.swing.JTextField txtNomeCliente;

@@ -23,8 +23,10 @@ public class cadastroCliente extends javax.swing.JFrame {
     public cadastroCliente() {
         initComponents();
       DefaultTableModel modelo = (DefaultTableModel)tabela.getModel();
-      
+     
+       
       readJtable(); // pra carregar no inicio
+     
       
     }
     
@@ -376,6 +378,7 @@ public class cadastroCliente extends javax.swing.JFrame {
         
         dao.delete(c);
         readJtable();
+        limpaCampo();
         }else{
             JOptionPane.showMessageDialog(null,"selecione um regitro para excluir!");
         }
@@ -405,6 +408,8 @@ public class cadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+     
+       
         Cliente c = new Cliente();
         ClienteDAO dao = new ClienteDAO();
         c.setNome(txtNome.getText());
@@ -419,12 +424,55 @@ public class cadastroCliente extends javax.swing.JFrame {
         c.setCidade(txtCidade.getText());
         c.setCep(txtCep.getText());
         c.setEstado(txtEstado.getText());
+        validaCampo();
         
-        dao.create(c);
-        readJtable();
-        limpaCampo();
+        
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
+   public void validaCampo(){
+    Cliente c = new Cliente();
+    ClienteDAO dao = new ClienteDAO();
+       if(txtNome.getText().isEmpty() || txtNome.getText()==null){
+            JOptionPane.showMessageDialog(null,"nome invalido");
+        }else if(txtEmail.getText().isEmpty()|| txtEmail.getText()==null){
+            JOptionPane.showMessageDialog(null,"email invalido");
+        }else if( txtLogradouro.getText().isEmpty()|| txtLogradouro.getText()==null ){
+            JOptionPane.showMessageDialog(null,"Logradouro invalido");
+            }
+        else if( txtCpf.getText().isEmpty()|| txtCpf.getText()==null ){
+            JOptionPane.showMessageDialog(null,"cpf invalido");
+            }
+        else if( txtNumeroCasa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,"numero da casa invalido");
+            }
+        else if( txtTel.getText().isEmpty() || txtTel.getText()==null ){
+            JOptionPane.showMessageDialog(null,"numero de telefone invalido");
+            }
+        else if( txtCel.getText().isEmpty() || txtCel.getText()==null ){
+            JOptionPane.showMessageDialog(null,"numero de celular invalido");
+            }
+        else if( txtBairro.getText().isEmpty() || txtBairro.getText()==null){
+            JOptionPane.showMessageDialog(null,"Bairro invalido invalido");
+            }
+        else if( txtCep.getText().isEmpty() || txtCep.getText()==null ){
+            JOptionPane.showMessageDialog(null,"cep invalido");
+            }
+        else if( txtCidade.getText().isEmpty() || txtCidade.getText()==null ){
+            JOptionPane.showMessageDialog(null,"cidade invalido");
+            }
+        else if( txtEstado.getText().isEmpty() || txtEstado.getText()==null ){
+            JOptionPane.showMessageDialog(null,"Estado invalido");
+            }
+        
+       
+        
+        
+        else{
+            dao.create(c);
+            readJtable();
+            limpaCampo();
+            
+        }
+   }
     public void limpaCampo (){
         txtNome.setText("");
         txtEmail.setText("");
@@ -451,36 +499,36 @@ public class cadastroCliente extends javax.swing.JFrame {
     private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
         if(tabela.getSelectedRow() != -1){
           		
-        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
-        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
-        txtCpf.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
-        txtLogradouro.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
-        txtNumeroCasa.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
-        txtTel.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
-        txtCel.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
-        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
-        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
-        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
-        txtEstado.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+        txtCpf.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
+        txtLogradouro.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
+        txtNumeroCasa.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
+        txtTel.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
+        txtCel.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
+        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
+        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
+        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
+        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        txtEstado.setText(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
         }
     }//GEN-LAST:event_tabelaKeyReleased
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if(tabela.getSelectedRow() != -1){
           		
-        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
-        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
-        txtCpf.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
-        txtLogradouro.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
-        txtNumeroCasa.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
-        txtTel.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
-        txtCel.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
-        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
-        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
-        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
-        txtEstado.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+        txtCpf.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
+        txtLogradouro.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
+        txtNumeroCasa.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
+        txtTel.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
+        txtCel.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
+        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
+        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
+        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
+        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        txtEstado.setText(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
