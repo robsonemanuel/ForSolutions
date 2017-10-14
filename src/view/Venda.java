@@ -1,7 +1,24 @@
 package view;
 
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import static java.awt.Component.LEFT_ALIGNMENT;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Pagamento;
@@ -46,6 +63,59 @@ public class Venda extends javax.swing.JFrame {
           
         
         
+    }
+    
+    public void gerarPdf(){
+        Document documento = new Document();
+        Date dataHoraAtual = new Date();
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+       
+        
+        JOptionPane.showMessageDialog(null, "PDF gerado com sucesso ! ");
+        try{
+            PdfWriter.getInstance(documento, new FileOutputStream("venda.pdf"));
+            documento.open(); // abrindo o documento
+            //criando as fontes e personalizando os textos
+            Font fontCabecalho = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD,
+                    BaseColor.BLUE);
+            Font dadosCliente = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD,
+                    BaseColor.BLACK);
+            Font dadosLogo = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD,
+                    BaseColor.BLUE);
+            Paragraph logo = new Paragraph("For Solutions");
+            logo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo);
+            Paragraph cidade = new Paragraph("São Paulo,SP");
+            documento.add(cidade);
+            Paragraph estabelecimento = new Paragraph("Via Estabelecimento");
+            documento.add(estabelecimento);
+            Paragraph docData = new Paragraph(data + " " + hora);
+            documento.add(docData);
+            Paragraph logo2 = new Paragraph("Venda Autorizada");
+            logo2.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo2);
+            for(int i=0; i<jtVendaProdutos.getRowCount(); i++){
+                 String desc = jtVendaProdutos.getValueAt(i,0).toString();
+                 float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,1).toString());
+                 int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,2).toString());
+                 Paragraph produtos = new Paragraph("Descrição Produto: "+desc + "\n" + "Valor: R$" + valor + "\n" + "Quant: " + quantidade + "\n");
+                 documento.add(produtos);
+            }
+            Paragraph div = new Paragraph("_______________________________________________________________________");
+            documento.add(div);
+            Paragraph valor = new Paragraph("Valor das peças Utilizadas: R$" + jTextTotal.getText());
+            documento.add(valor);
+        }catch (FileNotFoundException | DocumentException ex) {
+            JOptionPane.showMessageDialog(null, "erro ao gerar o pdf " + ex);
+        } finally {
+            documento.close();
+        }
+         try {
+            Desktop.getDesktop().open(new File("venda.pdf")); // vai abrir o pdf assim que for gerado
+        } catch (IOException ex) {
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 
@@ -331,6 +401,14 @@ public class Venda extends javax.swing.JFrame {
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButton2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButton3))
                                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                             .addComponent(jCheckBox2)
@@ -343,15 +421,7 @@ public class Venda extends javax.swing.JFrame {
                                             .addGap(22, 22, 22)
                                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jtDebito, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                                                .addComponent(jtDinheiro))))
-                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton3)))
+                                                .addComponent(jtDinheiro)))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -405,7 +475,7 @@ public class Venda extends javax.swing.JFrame {
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtDebito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox2)
                     .addComponent(jtCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -415,7 +485,7 @@ public class Venda extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -491,7 +561,7 @@ public class Venda extends javax.swing.JFrame {
         double count=0;
         for (int i=0; i<=dtmProdutos.getRowCount()-1;i++) {
         count+=Double.parseDouble(dtmProdutos.getValueAt(i, 3).toString());
-}
+       }
        
         jTextTotal.setText(""+count);
         
@@ -610,7 +680,7 @@ public class Venda extends javax.swing.JFrame {
            dao.createVendaProduto(v);
        }
        
-       
+        gerarPdf();
      }
      if(soma<total){
         JOptionPane.showMessageDialog(null,"Valor informado menor que o total!!");

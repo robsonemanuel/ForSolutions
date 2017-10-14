@@ -267,7 +267,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         float valor1 = Float.parseFloat(txtValPecas.getText());
         float valor2 = Float.parseFloat(txtValServico.getText());
         float Valtotal = valor1 + valor2;
-       Date dataHoraAtual = new Date();
+        Date dataHoraAtual = new Date();
         String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
         String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
        
