@@ -237,6 +237,11 @@ public class Venda extends javax.swing.JFrame {
                 cbprodutosMouseClicked(evt);
             }
         });
+        cbprodutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbprodutosActionPerformed(evt);
+            }
+        });
         cbprodutos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cbprodutosKeyPressed(evt);
@@ -624,6 +629,10 @@ public class Venda extends javax.swing.JFrame {
       
       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprodutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbprodutosActionPerformed
 
     float ParseFloat(String strNumber) {
    if (strNumber != null && strNumber.length() > 0) {
