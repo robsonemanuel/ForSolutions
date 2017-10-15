@@ -6,6 +6,7 @@
 package view;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
@@ -15,6 +16,7 @@ import javax.swing.text.MaskFormatter;
 import model.bean.Departamento;
 import model.bean.Funcionario;
 import model.dao.CadFuncionarioDAO;
+import model.dao.LoginDAO;
 
 /**
  *
@@ -91,6 +93,9 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         edt_senha1 = new javax.swing.JPasswordField();
         edt_senha2 = new javax.swing.JPasswordField();
+        btn_alterar = new javax.swing.JButton();
+        btn_excluir = new javax.swing.JButton();
+        btn_pesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +137,11 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         edt_tel.setColumns(11);
 
         edt_dtad.setColumns(8);
+        edt_dtad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edt_dtadActionPerformed(evt);
+            }
+        });
 
         comboDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +189,27 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Confirme a senha:");
 
+        btn_alterar.setText("Alterar");
+        btn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterarActionPerformed(evt);
+            }
+        });
+
+        btn_excluir.setText("Excluir");
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
+
+        btn_pesquisar.setText("Pesquisar");
+        btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisarActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -204,17 +235,14 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(edt_senha1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(edt_senha2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btn_alterar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btn_excluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btn_pesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(290, 290, 290))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -234,16 +262,30 @@ public class CadastraFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(edt_nome)
-                        .addComponent(edt_dtad)
-                        .addComponent(edt_tel)
-                        .addComponent(edt_logra, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
-                        .addComponent(edt_email)
-                        .addComponent(edt_num, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(edt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(edt_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_senha2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edt_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btn_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edt_senha2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(318, 318, 318)
+                            .addComponent(btn_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(btn_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(btn_cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(edt_nome)
+                                .addComponent(edt_dtad)
+                                .addComponent(edt_tel)
+                                .addComponent(edt_logra, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                                .addComponent(edt_email)
+                                .addComponent(edt_num, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -287,18 +329,25 @@ public class CadastraFuncionario extends javax.swing.JFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(edt_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(edt_senha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(edt_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(edt_senha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btn_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
         );
 
@@ -436,6 +485,77 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edt_cpfActionPerformed
 
+    private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        if(verificaCampo()){
+            CadFuncionarioDAO cfdao = new CadFuncionarioDAO();        
+            String cargo_selecionado = (String) comboCargo.getSelectedItem();
+            String dept_selecionado = (String) comboDepartamento.getSelectedItem();       
+            int id_cargo = cfdao.buscaCodCargo(cargo_selecionado);
+            int id_depto = cfdao.buscaCodDepartamento(dept_selecionado); 
+            int num = Integer.parseInt(edt_num.getText());
+            float salario = cfdao.buscaSalario(cargo_selecionado);
+            int id_log   = cfdao.buscaCodLogin(edt_nome.getText());
+            Funcionario f = new Funcionario (salario,dept_selecionado,cargo_selecionado,edt_dtad.getText(),id_log,edt_cpf.getText(),edt_email.getText(),
+            edt_nome.getText(),edt_logra.getText(),num,edt_tel.getText());                     
+            cfdao.update(f, id_cargo, id_depto);
+            LoginDAO ldao = new LoginDAO();        
+            ldao.update(f.getLogin(), edt_senha1.getText());
+                edt_nome.setText("");
+                edt_cpf.setText("");
+                edt_tel.setText("");
+                edt_email.setText("");
+                edt_logra.setText("");
+                edt_num.setText("");
+                edt_dtad.setText("");
+                edt_senha1.setText("");
+                edt_senha2.setText("");
+        }else{
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_btn_alterarActionPerformed
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        CadFuncionarioDAO cfdao = new CadFuncionarioDAO();    
+        LoginDAO ldao = new LoginDAO();
+        String cpf = edt_cpf.getText();
+        Funcionario fun = cfdao.select(cpf); 
+        cfdao.delete(fun);
+        ldao.delete(fun.getLogin());
+        edt_nome.setText("");
+        edt_cpf.setText("");
+        edt_tel.setText("");
+        edt_email.setText("");
+        edt_logra.setText("");
+        edt_num.setText("");
+        edt_dtad.setText("");
+        edt_senha1.setText("");
+        edt_senha2.setText("");
+    }//GEN-LAST:event_btn_excluirActionPerformed
+
+    private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
+        CadFuncionarioDAO cfdao = new CadFuncionarioDAO();         
+        String cpf = edt_cpf.getText();
+        Funcionario fun = cfdao.select(cpf); 
+        String senha = cfdao.buscaSenhaLogin(fun.getLogin());
+        comboCargo.addItem(fun.getCargo());            
+        comboDepartamento.addItem(fun.getDepartamento());        
+        edt_nome.setText(fun.getNome());
+        edt_email.setText(fun.getEmail());
+        edt_logra.setText(fun.getLogradouro());        
+        edt_num.setText(Integer.toString(fun.getNumero()));
+        edt_dtad.setText(fun.getData_admissao());
+        edt_tel.setText(fun.getTelefone());
+        edt_senha1.setText(senha);
+        edt_senha2.setText(senha);
+    }//GEN-LAST:event_btn_pesquisarActionPerformed
+
+    private void edt_dtadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edt_dtadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edt_dtadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -472,8 +592,11 @@ public class CadastraFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_alterar;
     private javax.swing.JButton btn_cadastrar;
     private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_excluir;
+    private javax.swing.JButton btn_pesquisar;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JFormattedTextField edt_cpf;
