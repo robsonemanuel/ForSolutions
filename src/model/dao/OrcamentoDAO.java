@@ -4,6 +4,7 @@ package model.dao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,4 +44,27 @@ public class OrcamentoDAO {
         }
         
     }
+     public int readUltimoId(){
+      
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       int valor=0;
+       
+        try {
+           
+            stmt = con.prepareStatement("select idorcamento from orcamento order by idorcamento desc limit 1");
+            rs = stmt.executeQuery();
+             while(rs.next()){
+               valor = rs.getInt("idorcamento");
+             }
+         
+        } catch (SQLException ex) {
+           
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt,rs);
+     }
+      
+       return valor;
+     }
 }

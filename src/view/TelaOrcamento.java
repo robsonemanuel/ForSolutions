@@ -52,11 +52,11 @@ public class TelaOrcamento extends javax.swing.JFrame {
     public TelaOrcamento() {
         initComponents();
 
-         EstoqueProdutoDAO dao = new EstoqueProdutoDAO();
-        
-        for(Produto p: dao.readOrderByAsc()){
-                cbPecas.addItem(p);
-                
+        EstoqueProdutoDAO dao = new EstoqueProdutoDAO();
+
+        for (Produto p : dao.readOrderByAsc()) {
+            cbPecas.addItem(p);
+             
         }
     }
 
@@ -79,7 +79,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricaoAnalise = new javax.swing.JTextArea();
-        btnPDF = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnGravar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -124,14 +123,12 @@ public class TelaOrcamento extends javax.swing.JFrame {
         txtDescricaoAnalise.setRows(5);
         jScrollPane1.setViewportView(txtDescricaoAnalise);
 
-        btnPDF.setText("Gerar PDF");
-        btnPDF.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPDFActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Sair");
 
         btnGravar.setText("Gravar");
         btnGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +208,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(btnPDF, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -233,10 +229,9 @@ public class TelaOrcamento extends javax.swing.JFrame {
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGap(18, 18, 18)
                                     .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(btnPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(10, 10, 10))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,7 +304,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
@@ -333,18 +327,16 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     
     public void geraPdf() {
-        
+        OrcamentoDAO orc = new OrcamentoDAO();
         Document documento = new Document();
-        //float valor1 = Float.parseFloat(txtValPecas.getText());
-        //float valor2 = Float.parseFloat(txtValServico.getText());
-        //float Valtotal = valor1 + valor2;
-       Date dataHoraAtual = new Date();
+
+        Date dataHoraAtual = new Date();
+        Float valorServ = ParseFloat(txtValServico.getText());
         String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
         String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
-       
+
         try {
             PdfWriter.getInstance(documento, new FileOutputStream("orcamento.pdf"));
 
@@ -362,52 +354,64 @@ public class TelaOrcamento extends javax.swing.JFrame {
             Paragraph cabecalho = new Paragraph("Orcamento do serviço", fontCabecalho);
             cabecalho.setAlignment(Element.ALIGN_CENTER);
             documento.add(cabecalho);
-            Paragraph divisor = new Paragraph("_______________________________________________________________________");     
-            Paragraph dados = new Paragraph("Dados do cliente ",dadosCliente);
+            Paragraph divisor = new Paragraph("_______________________________________________________________________");
+            Paragraph dados = new Paragraph("Dados do cliente ", dadosCliente);
             dados.setAlignment(Element.ALIGN_CENTER);
             documento.add(divisor);
             documento.add(dados);
             Paragraph nome = new Paragraph("Nome: " + txtNomeCliente.getText());
             documento.add(nome);
-           // Paragraph numero = new Paragraph("Nº cliente: " + txtNcliente.getText());
-           // documento.add(numero);
             Paragraph tel = new Paragraph("Telefone: " + txtTelefoneCliente.getText());
             documento.add(tel);
+            Paragraph nOrc = new Paragraph("Nº Orçamento: "+orc.readUltimoId() );
+            documento.add(nOrc);
             Paragraph div3 = new Paragraph("_______________________________________________________________________");
             documento.add(div3);
-            Paragraph descriModel = new Paragraph("Informações do Aparelho: ",dadosCliente );
+            Paragraph descriModel = new Paragraph("Informações do Aparelho: ", dadosCliente);
             descriModel.setAlignment(Element.ALIGN_CENTER);
             documento.add(descriModel);
             Paragraph modelo = new Paragraph("Modelo do Aparelho: " + txtModelo.getText());
             documento.add(modelo);
-            //Paragraph modelPeca = new Paragraph("Modelo da peça utilizada: " + txtPeca.getText());
-            //documento.add(modelPeca);
             Paragraph div = new Paragraph("_______________________________________________________________________");
             documento.add(div);
-            Paragraph info = new Paragraph("Dados do Serviço ",dadosCliente);
+            Paragraph info = new Paragraph("Dados do Serviço ", dadosCliente);
             info.setAlignment(Element.ALIGN_CENTER);
             documento.add(info);
-            //Paragraph peca = new Paragraph("Valor das peças Utilizadas: " + txtValPecas.getText());
-            //documento.add(peca);
-            Paragraph serv = new Paragraph("Valor da mão de obra: " + txtValServico.getText());
-            documento.add(serv);
-            Paragraph defeito = new Paragraph("Descrição do defeito: " + txtDescricaoAnalise.getText());
-            documento.add(defeito);
+            
+            for (int i = 0; i < jtPeca.getRowCount(); i++) {
+                String desc = jtPeca.getValueAt(i, 0).toString();
+                String quantidade = jtPeca.getValueAt(i, 1).toString();
+                String valor = jtPeca.getValueAt(i, 2).toString();
+                Paragraph pecas = new Paragraph("Descrição das Peças: " + desc + "\n" + "Valor: R$" + valor + "\n" + "Quant: " + quantidade + "\n");
+                documento.add(pecas);
+                float valPeca = Float.parseFloat(valor);
+                float quantPeca = Float.parseFloat(quantidade);
+                float totalPecas = valPeca * quantPeca;
+                float valObra = Float.parseFloat(txtValServico.getText());
+                float totalPagar = totalPecas + valObra;
+               Paragraph serv = new Paragraph("Valor da mão de obra: " +valorServ);
+                documento.add(serv);
+                Paragraph total = new Paragraph("Valor total a Pagar: " + totalPagar);
+                documento.add(total);
+
+            }
+             
+                Paragraph defeito = new Paragraph("Descrição do defeito: " + txtDescricaoAnalise.getText());
+                documento.add(defeito);
+
             Paragraph div2 = new Paragraph("_______________________________________________________________________");
             div.setAlignment(Element.ALIGN_CENTER);
             documento.add(div2);
-            Paragraph docData = new Paragraph("Data: " +data);
+            Paragraph docData = new Paragraph("Data: " + data);
             documento.add(docData);
-            Paragraph docHora = new Paragraph("Hora: " +hora);
+            Paragraph docHora = new Paragraph("Hora: " + hora);
             documento.add(docHora);
             //Paragraph total = new Paragraph("Total a pagar:" + Valtotal);
             //documento.add(total);
-            
-             
 
             JOptionPane.showMessageDialog(null, "PDF gerado com sucesso ! ");
-        
-       } catch (FileNotFoundException | DocumentException ex) {
+
+        } catch (FileNotFoundException | DocumentException ex) {
             JOptionPane.showMessageDialog(null, "erro ao gerar o pdf " + ex);
         } finally {
             documento.close();
@@ -417,43 +421,51 @@ public class TelaOrcamento extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(TelaOrcamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
-
-    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        
-       if( txtNomeCliente.getText().isEmpty() ){
-          JOptionPane.showMessageDialog(null,"Preencha o nome do cliente para continuar");
-       }else if(txtTelefoneCliente.getText().isEmpty()){
-          JOptionPane.showMessageDialog(null,"Preencha o telefone do cliente para continuar"); 
-       }else if(txtDescricaoAnalise.getText().isEmpty()){
-          JOptionPane.showMessageDialog(null,"informe a descrição do defeito para continuar"); 
-       } else if(txtValServico.getText().isEmpty()){
-          JOptionPane.showMessageDialog(null,"informe o valor do serviço para continuar");   
-       }else if (txtModelo.getText().isEmpty()){
-           JOptionPane.showMessageDialog(null,"informe o o modelo do aparelho para continuar"); 
+    float ParseFloat(String strNumber) {
+   if (strNumber != null && strNumber.length() > 0) {
+       try {
+          return Float.parseFloat(strNumber);
+       } catch(Exception e) {
+          return -1;   // or some value to mark this field is wrong. or make a function validates field first ...
        }
-       else{
-  
-           geraPdf();
-       }
-    }//GEN-LAST:event_btnPDFActionPerformed
+   }
+   else return 0;
+}
 
+    
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         Orcamento orc = new Orcamento();
-
         OrcamentoDAO orcDao = new OrcamentoDAO();
-
-        orc.setValorServico(Float.parseFloat(txtValServico.getText()));
-       // orc.setValorPeca(Float.parseFloat(txtValPecas.getText()));
+        orc.setValorServico(ParseFloat(txtValServico.getText()));
+          float count=0;
+        for (int i=0; i<=jtPeca.getRowCount()-1;i++) {
+        count+=Float.parseFloat(jtPeca.getValueAt(i, 2).toString());
+       }
+        orc.setValorPeca(count);
         orc.setTelefone(txtTelefoneCliente.getText());
         orc.setNome(txtNomeCliente.getText());
         orc.setDescricao(txtDescricaoAnalise.getText());
+        
+        if (txtNomeCliente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o nome do cliente para continuar");
+        } else if (txtTelefoneCliente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o telefone do cliente para continuar");
+        } else if (txtDescricaoAnalise.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "informe a descrição do defeito para continuar");
+        } else if (txtModelo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "informe o modelo do aparelho para continuar");
+        }else if (txtValServico.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "informe o valor do serviço continuar");
+        } else {
+            orcDao.save(orc);
+            geraPdf();
+            limpaCampo();
+            limpaTabela();
+        }
+        
 
-       
-        orcDao.save(orc);
-        limpaCampo();
-         
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void txtModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloActionPerformed
@@ -461,7 +473,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtModeloActionPerformed
 
     private void cbPecasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPecasItemStateChanged
-        
+
 
     }//GEN-LAST:event_cbPecasItemStateChanged
 
@@ -479,20 +491,31 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
     private void txtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddActionPerformed
         Produto produto = (Produto) cbPecas.getSelectedItem();
-        DefaultTableModel dtmProdutos = ( DefaultTableModel) jtPeca.getModel();
-         Object [] dados = {produto.getDescricao(),"1",produto.getValor()};
+        DefaultTableModel dtmProdutos = (DefaultTableModel) jtPeca.getModel();
+        Object[] dados = {produto.getDescricao(), "1", produto.getValor()};
         dtmProdutos.addRow(dados);
+        
     }//GEN-LAST:event_txtAddActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void limpaCampo() {
         txtNomeCliente.setText("");
-        
         txtValServico.setText("");
-       
+        txtModelo.setText("");
         txtDescricaoAnalise.setText("");
         txtTelefoneCliente.setText("");
     }
-
+public void limpaTabela(){
+        DefaultTableModel tblRemove = (DefaultTableModel)jtPeca.getModel();
+        if (tblRemove.getRowCount() > 0){
+            for (int i=1;i<=tblRemove.getRowCount();i++){
+                tblRemove.removeRow(0);
+            }            
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -534,7 +557,6 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGravar;
-    private javax.swing.JButton btnPDF;
     private javax.swing.JComboBox<Object> cbPecas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

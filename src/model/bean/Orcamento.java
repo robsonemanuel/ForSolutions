@@ -8,6 +8,8 @@ public class Orcamento extends Cliente {
    private float valorPeca;
    private String descricao;
    private Date data;
+   private String nome;
+   
     public Orcamento() {
     }
 
