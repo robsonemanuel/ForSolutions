@@ -7,6 +7,8 @@ package model.bean;
 public class Cargo {
     private String nome;
     private float salario;
+    private int id;
+    private int dpto;
 
     public Cargo() {
     }
@@ -27,5 +29,20 @@ public class Cargo {
         this.salario = salario;
     }
     
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getDpto(){
+        return dpto;
+    }
+    
+    public void setDpto(int dpto){
+        this.dpto = dpto;
+    }
     
 }

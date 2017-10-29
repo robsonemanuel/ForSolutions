@@ -1,0 +1,395 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class com.itextpdf.text.BaseColor
+class com.itextpdf.text.Document
+class com.itextpdf.text.DocumentException
+class com.itextpdf.text.Element
+class com.itextpdf.text.Font
+class com.itextpdf.text.Font.FontFamily
+class com.itextpdf.text.Paragraph
+class com.itextpdf.text.Phrase
+class com.itextpdf.text.pdf.BaseFont
+class com.itextpdf.text.pdf.PdfWriter
+class connection.ConnectionFactory
+class java.awt.Color
+class java.awt.Component
+class java.awt.Desktop
+class java.awt.Graphics
+class java.io.File
+class java.io.FileNotFoundException
+class java.io.FileOutputStream
+class java.io.IOException
+class java.math.BigInteger
+class java.security.MessageDigest
+class java.security.NoSuchAlgorithmException
+class java.sql.Connection
+class java.sql.DriverManager
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.SQLException
+class java.sql.Timestamp
+class java.text.ParseException
+class java.text.SimpleDateFormat
+class java.util.ArrayList
+class java.util.Date
+class java.util.List
+class java.util.Locale
+class java.util.Properties
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.mail.Address
+class javax.mail.Message
+class javax.mail.MessagingException
+class javax.mail.PasswordAuthentication
+class javax.mail.Session
+class javax.mail.Transport
+class javax.mail.internet.InternetAddress
+class javax.mail.internet.MimeMessage
+class javax.swing.ComboBoxModel
+class javax.swing.JComboBox
+class javax.swing.JFormattedTextField
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.table.DefaultTableModel
+class javax.swing.table.TableRowSorter
+class javax.swing.text.MaskFormatter
+class model.bean.Cargo
+class model.bean.Cliente
+class model.bean.ContaPagar
+class model.bean.ContasReceber
+class model.bean.Departamento
+class model.bean.EstoqueProduto
+class model.bean.Estoque_Cliente
+class model.bean.FormaPagamento
+class model.bean.Funcionario
+class model.bean.HistoricoPagamento
+class model.bean.JavaMailApp
+class model.bean.Login
+class model.bean.Manutencao
+class model.bean.NotaFiscal
+class model.bean.Orcamento
+class model.bean.Ordem_Servico
+class model.bean.Pagamento
+class model.bean.Produto
+class model.bean.Teste
+class model.bean.VendaProduto
+class model.bean.VendaServico
+class model.dao.CadFuncionarioDAO
+class model.dao.ClienteDAO
+class model.dao.ContasAPagarDAO
+class model.dao.ContasAReceberDAO
+class model.dao.DepartamentoDAO
+class model.dao.EstoqueProdutoDAO
+class model.dao.LoginDAO
+class model.dao.OrcamentoDAO
+class model.dao.OrdemServicoDAO
+class model.dao.RecuperaSenhaDAO
+class model.dao.VendaDAO
+class view.Analise
+class view.CadastraDepartamento
+class view.CadastraFuncionario
+class view.CadastroProduto
+class view.Contas
+class view.ContasPagar
+class view.ContasReceber
+class view.FILA_OS
+class view.Login
+class view.Manutencao
+class view.NovaSenha
+class view.OrdemServico
+class view.PesquisarCliente
+class view.PesquisarOS
+class view.PesquisarProduto
+class view.Principal
+class view.RecuperaSenha
+class view.TelaOrcamento
+class view.Teste
+class view.Venda
+class view.cadastroCliente
+interface model.bean.Autenticacao
+interface model.bean.Iestoque
+connection.ConnectionFactory ..> java.sql.Connection
+connection.ConnectionFactory ..> java.sql.DriverManager
+connection.ConnectionFactory ..> java.sql.PreparedStatement
+connection.ConnectionFactory ..> java.sql.ResultSet
+connection.ConnectionFactory ..> java.sql.SQLException
+connection.ConnectionFactory ..> java.util.logging.Level
+connection.ConnectionFactory ..> java.util.logging.Logger
+model.bean.EstoqueProduto ..> java.lang.Override
+model.bean.EstoqueProduto ..> java.util.Date
+model.bean.EstoqueProduto --|> model.bean.Iestoque
+model.bean.Estoque_Cliente ..> java.lang.Override
+model.bean.Estoque_Cliente ..> java.util.Date
+model.bean.Estoque_Cliente --|> model.bean.Iestoque
+model.bean.Funcionario ..> java.lang.Override
+model.bean.Funcionario --|> model.bean.Autenticacao
+model.bean.HistoricoPagamento ..> java.util.List
+model.bean.JavaMailApp ..> connection.ConnectionFactory
+model.bean.JavaMailApp ..> java.sql.Connection
+model.bean.JavaMailApp ..> java.sql.PreparedStatement
+model.bean.JavaMailApp ..> java.sql.ResultSet
+model.bean.JavaMailApp ..> java.sql.SQLException
+model.bean.JavaMailApp ..> java.util.Properties
+model.bean.JavaMailApp ..> javax.mail.Address
+model.bean.JavaMailApp ..> javax.mail.Message
+model.bean.JavaMailApp ..> javax.mail.MessagingException
+model.bean.JavaMailApp ..> javax.mail.PasswordAuthentication
+model.bean.JavaMailApp ..> javax.mail.Session
+model.bean.JavaMailApp ..> javax.mail.Transport
+model.bean.JavaMailApp ..> javax.mail.internet.InternetAddress
+model.bean.JavaMailApp ..> javax.mail.internet.MimeMessage
+model.bean.JavaMailApp ..> javax.swing.JOptionPane
+model.bean.Login ..> java.lang.Override
+model.bean.Login --|> model.bean.Autenticacao
+model.bean.NotaFiscal ..> java.util.Date
+model.bean.Orcamento ..> java.util.Date
+model.bean.Orcamento --|> model.bean.Cliente
+model.bean.Ordem_Servico ..> java.util.Date
+model.bean.VendaProduto ..> java.util.List
+model.dao.CadFuncionarioDAO ..> connection.ConnectionFactory
+model.dao.CadFuncionarioDAO ..> java.sql.Connection
+model.dao.CadFuncionarioDAO ..> java.sql.PreparedStatement
+model.dao.CadFuncionarioDAO ..> java.sql.ResultSet
+model.dao.CadFuncionarioDAO ..> java.sql.SQLException
+model.dao.CadFuncionarioDAO ..> java.util.ArrayList
+model.dao.CadFuncionarioDAO ..> java.util.List
+model.dao.CadFuncionarioDAO ..> javax.swing.JOptionPane
+model.dao.CadFuncionarioDAO ..> model.bean.Departamento
+model.dao.CadFuncionarioDAO ..> model.bean.Funcionario
+model.dao.CadFuncionarioDAO ..> view.CadastraFuncionario
+model.dao.ClienteDAO ..> connection.ConnectionFactory
+model.dao.ClienteDAO ..> java.sql.Connection
+model.dao.ClienteDAO ..> java.sql.PreparedStatement
+model.dao.ClienteDAO ..> java.sql.ResultSet
+model.dao.ClienteDAO ..> java.sql.SQLException
+model.dao.ClienteDAO ..> java.util.ArrayList
+model.dao.ClienteDAO ..> java.util.List
+model.dao.ClienteDAO ..> java.util.logging.Level
+model.dao.ClienteDAO ..> java.util.logging.Logger
+model.dao.ClienteDAO ..> javax.swing.JOptionPane
+model.dao.ClienteDAO ..> model.bean.Cliente
+model.dao.ContasAPagarDAO ..> connection.ConnectionFactory
+model.dao.ContasAPagarDAO ..> java.sql.Connection
+model.dao.ContasAPagarDAO ..> java.sql.PreparedStatement
+model.dao.ContasAPagarDAO ..> java.sql.ResultSet
+model.dao.ContasAPagarDAO ..> java.sql.SQLException
+model.dao.ContasAPagarDAO ..> java.util.ArrayList
+model.dao.ContasAPagarDAO ..> java.util.List
+model.dao.ContasAPagarDAO ..> java.util.logging.Level
+model.dao.ContasAPagarDAO ..> java.util.logging.Logger
+model.dao.ContasAPagarDAO ..> javax.swing.JOptionPane
+model.dao.ContasAPagarDAO ..> model.bean.ContaPagar
+model.dao.DepartamentoDAO ..> connection.ConnectionFactory
+model.dao.DepartamentoDAO ..> java.sql.Connection
+model.dao.DepartamentoDAO ..> java.sql.PreparedStatement
+model.dao.DepartamentoDAO ..> java.sql.ResultSet
+model.dao.DepartamentoDAO ..> java.sql.SQLException
+model.dao.DepartamentoDAO ..> java.util.ArrayList
+model.dao.DepartamentoDAO ..> java.util.List
+model.dao.DepartamentoDAO ..> javax.swing.JOptionPane
+model.dao.DepartamentoDAO ..> model.bean.Departamento
+model.dao.EstoqueProdutoDAO ..> connection.ConnectionFactory
+model.dao.EstoqueProdutoDAO ..> java.sql.Connection
+model.dao.EstoqueProdutoDAO ..> java.sql.PreparedStatement
+model.dao.EstoqueProdutoDAO ..> java.sql.ResultSet
+model.dao.EstoqueProdutoDAO ..> java.sql.SQLException
+model.dao.EstoqueProdutoDAO ..> java.util.ArrayList
+model.dao.EstoqueProdutoDAO ..> java.util.List
+model.dao.EstoqueProdutoDAO ..> java.util.logging.Level
+model.dao.EstoqueProdutoDAO ..> java.util.logging.Logger
+model.dao.EstoqueProdutoDAO ..> javax.swing.JOptionPane
+model.dao.EstoqueProdutoDAO ..> model.bean.Produto
+model.dao.LoginDAO ..> connection.ConnectionFactory
+model.dao.LoginDAO ..> java.sql.Connection
+model.dao.LoginDAO ..> java.sql.PreparedStatement
+model.dao.LoginDAO ..> java.sql.ResultSet
+model.dao.LoginDAO ..> java.sql.SQLException
+model.dao.LoginDAO ..> java.util.logging.Level
+model.dao.LoginDAO ..> java.util.logging.Logger
+model.dao.LoginDAO ..> javax.swing.JOptionPane
+model.dao.OrcamentoDAO ..> connection.ConnectionFactory
+model.dao.OrcamentoDAO ..> java.sql.Connection
+model.dao.OrcamentoDAO ..> java.sql.PreparedStatement
+model.dao.OrcamentoDAO ..> java.sql.ResultSet
+model.dao.OrcamentoDAO ..> java.sql.SQLException
+model.dao.OrcamentoDAO ..> java.util.logging.Level
+model.dao.OrcamentoDAO ..> java.util.logging.Logger
+model.dao.OrcamentoDAO ..> javax.swing.JOptionPane
+model.dao.OrcamentoDAO ..> model.bean.Orcamento
+model.dao.RecuperaSenhaDAO ..> connection.ConnectionFactory
+model.dao.RecuperaSenhaDAO ..> java.math.BigInteger
+model.dao.RecuperaSenhaDAO ..> java.security.MessageDigest
+model.dao.RecuperaSenhaDAO ..> java.security.NoSuchAlgorithmException
+model.dao.RecuperaSenhaDAO ..> java.sql.Connection
+model.dao.RecuperaSenhaDAO ..> java.sql.PreparedStatement
+model.dao.RecuperaSenhaDAO ..> java.sql.ResultSet
+model.dao.RecuperaSenhaDAO ..> java.sql.SQLException
+model.dao.RecuperaSenhaDAO ..> java.sql.Timestamp
+model.dao.RecuperaSenhaDAO ..> java.text.SimpleDateFormat
+model.dao.RecuperaSenhaDAO ..> java.util.Locale
+model.dao.RecuperaSenhaDAO ..> java.util.logging.Level
+model.dao.RecuperaSenhaDAO ..> java.util.logging.Logger
+model.dao.RecuperaSenhaDAO ..> javax.swing.JOptionPane
+model.dao.RecuperaSenhaDAO ..> model.bean.JavaMailApp
+model.dao.VendaDAO ..> connection.ConnectionFactory
+model.dao.VendaDAO ..> java.sql.Connection
+model.dao.VendaDAO ..> java.sql.PreparedStatement
+model.dao.VendaDAO ..> java.sql.ResultSet
+model.dao.VendaDAO ..> java.sql.SQLException
+model.dao.VendaDAO ..> java.util.logging.Level
+model.dao.VendaDAO ..> java.util.logging.Logger
+model.dao.VendaDAO ..> javax.swing.JOptionPane
+model.dao.VendaDAO ..> model.bean.Pagamento
+model.dao.VendaDAO ..> model.bean.VendaProduto
+view.Analise ..> java.lang.SuppressWarnings
+view.Analise --|> javax.swing.JFrame
+view.CadastraDepartamento ..> java.lang.SuppressWarnings
+view.CadastraDepartamento --|> javax.swing.JFrame
+view.CadastraDepartamento ..> javax.swing.table.DefaultTableModel
+view.CadastraDepartamento ..> javax.swing.table.TableRowSorter
+view.CadastraDepartamento ..> model.bean.Departamento
+view.CadastraDepartamento ..> model.dao.DepartamentoDAO
+view.CadastraFuncionario ..> java.lang.SuppressWarnings
+view.CadastraFuncionario ..> java.text.ParseException
+view.CadastraFuncionario ..> java.util.ArrayList
+view.CadastraFuncionario ..> java.util.List
+view.CadastraFuncionario ..> javax.swing.ComboBoxModel
+view.CadastraFuncionario ..> javax.swing.JComboBox
+view.CadastraFuncionario ..> javax.swing.JFormattedTextField
+view.CadastraFuncionario --|> javax.swing.JFrame
+view.CadastraFuncionario ..> javax.swing.JOptionPane
+view.CadastraFuncionario ..> javax.swing.text.MaskFormatter
+view.CadastraFuncionario ..> model.bean.Departamento
+view.CadastraFuncionario ..> model.bean.Funcionario
+view.CadastraFuncionario ..> model.dao.CadFuncionarioDAO
+view.CadastraFuncionario ..> model.dao.LoginDAO
+view.CadastroProduto ..> java.lang.SuppressWarnings
+view.CadastroProduto --|> javax.swing.JFrame
+view.CadastroProduto ..> javax.swing.JOptionPane
+view.CadastroProduto ..> javax.swing.table.DefaultTableModel
+view.CadastroProduto ..> javax.swing.table.TableRowSorter
+view.CadastroProduto ..> model.bean.Produto
+view.CadastroProduto ..> model.dao.EstoqueProdutoDAO
+view.Contas ..> java.lang.SuppressWarnings
+view.Contas --|> javax.swing.JFrame
+view.ContasPagar ..> java.lang.SuppressWarnings
+view.ContasPagar ..> java.text.ParseException
+view.ContasPagar ..> javax.swing.JFormattedTextField
+view.ContasPagar --|> javax.swing.JFrame
+view.ContasPagar ..> javax.swing.JOptionPane
+view.ContasPagar ..> javax.swing.table.DefaultTableModel
+view.ContasPagar ..> javax.swing.table.TableRowSorter
+view.ContasPagar ..> javax.swing.text.MaskFormatter
+view.ContasPagar ..> model.bean.ContaPagar
+view.ContasPagar ..> model.dao.ContasAPagarDAO
+view.ContasReceber ..> java.lang.SuppressWarnings
+view.ContasReceber --|> javax.swing.JFrame
+view.FILA_OS ..> java.lang.SuppressWarnings
+view.FILA_OS --|> javax.swing.JFrame
+view.Login ..> java.lang.SuppressWarnings
+view.Login --|> javax.swing.JFrame
+view.Login ..> javax.swing.JOptionPane
+view.Login ..> model.dao.LoginDAO
+view.Manutencao ..> java.lang.SuppressWarnings
+view.Manutencao --|> javax.swing.JFrame
+view.NovaSenha ..> java.lang.SuppressWarnings
+view.NovaSenha --|> javax.swing.JFrame
+view.NovaSenha ..> javax.swing.JOptionPane
+view.NovaSenha ..> model.dao.LoginDAO
+view.OrdemServico ..> java.lang.SuppressWarnings
+view.OrdemServico --|> javax.swing.JFrame
+view.OrdemServico ..> javax.swing.table.DefaultTableModel
+view.OrdemServico ..> model.bean.Orcamento
+view.OrdemServico ..> model.bean.Ordem_Servico
+view.OrdemServico ..> model.bean.Produto
+view.OrdemServico ..> model.dao.OrdemServicoDAO
+view.PesquisarCliente ..> java.lang.SuppressWarnings
+view.PesquisarCliente --|> javax.swing.JFrame
+view.PesquisarOS ..> java.lang.SuppressWarnings
+view.PesquisarOS --|> javax.swing.JFrame
+view.PesquisarProduto ..> java.lang.SuppressWarnings
+view.PesquisarProduto --|> javax.swing.JFrame
+view.Principal ..> java.lang.SuppressWarnings
+view.Principal --|> javax.swing.JFrame
+view.RecuperaSenha ..> java.lang.SuppressWarnings
+view.RecuperaSenha ..> java.text.ParseException
+view.RecuperaSenha ..> javax.swing.JFormattedTextField
+view.RecuperaSenha --|> javax.swing.JFrame
+view.RecuperaSenha ..> javax.swing.JOptionPane
+view.RecuperaSenha ..> javax.swing.text.MaskFormatter
+view.RecuperaSenha ..> model.bean.JavaMailApp
+view.RecuperaSenha ..> model.dao.RecuperaSenhaDAO
+view.TelaOrcamento ..> java.lang.SuppressWarnings
+view.TelaOrcamento ..> com.itextpdf.text.BaseColor
+view.TelaOrcamento ..> com.itextpdf.text.Document
+view.TelaOrcamento ..> com.itextpdf.text.DocumentException
+view.TelaOrcamento ..> com.itextpdf.text.Element
+view.TelaOrcamento ..> com.itextpdf.text.Font
+view.TelaOrcamento ..> com.itextpdf.text.Font.FontFamily
+view.TelaOrcamento ..> com.itextpdf.text.Paragraph
+view.TelaOrcamento ..> com.itextpdf.text.Phrase
+view.TelaOrcamento ..> com.itextpdf.text.pdf.BaseFont
+view.TelaOrcamento ..> com.itextpdf.text.pdf.PdfWriter
+view.TelaOrcamento ..> connection.ConnectionFactory
+view.TelaOrcamento ..> java.awt.Color
+view.TelaOrcamento ..> java.awt.Desktop
+view.TelaOrcamento ..> java.awt.Graphics
+view.TelaOrcamento ..> java.io.File
+view.TelaOrcamento ..> java.io.FileNotFoundException
+view.TelaOrcamento ..> java.io.FileOutputStream
+view.TelaOrcamento ..> java.io.IOException
+view.TelaOrcamento ..> java.sql.Connection
+view.TelaOrcamento ..> java.sql.PreparedStatement
+view.TelaOrcamento ..> java.sql.ResultSet
+view.TelaOrcamento ..> java.sql.SQLException
+view.TelaOrcamento ..> java.text.SimpleDateFormat
+view.TelaOrcamento ..> java.util.ArrayList
+view.TelaOrcamento ..> java.util.Date
+view.TelaOrcamento ..> java.util.List
+view.TelaOrcamento ..> java.util.logging.Level
+view.TelaOrcamento ..> java.util.logging.Logger
+view.TelaOrcamento --|> javax.swing.JFrame
+view.TelaOrcamento ..> javax.swing.JOptionPane
+view.TelaOrcamento ..> javax.swing.table.DefaultTableModel
+view.TelaOrcamento ..> model.bean.Cliente
+view.TelaOrcamento ..> model.bean.Orcamento
+view.TelaOrcamento ..> model.bean.Produto
+view.TelaOrcamento ..> model.dao.EstoqueProdutoDAO
+view.TelaOrcamento ..> model.dao.OrcamentoDAO
+view.Teste ..> java.lang.SuppressWarnings
+view.Teste --|> javax.swing.JFrame
+view.Venda ..> java.lang.SuppressWarnings
+view.Venda ..> com.itextpdf.text.BaseColor
+view.Venda ..> com.itextpdf.text.Document
+view.Venda ..> com.itextpdf.text.DocumentException
+view.Venda ..> com.itextpdf.text.Element
+view.Venda ..> com.itextpdf.text.Font
+view.Venda ..> com.itextpdf.text.Paragraph
+view.Venda ..> com.itextpdf.text.pdf.PdfWriter
+view.Venda ..> java.awt.Component
+view.Venda ..> java.awt.Desktop
+view.Venda ..> java.io.File
+view.Venda ..> java.io.FileNotFoundException
+view.Venda ..> java.io.FileOutputStream
+view.Venda ..> java.io.IOException
+view.Venda ..> java.text.SimpleDateFormat
+view.Venda ..> java.util.ArrayList
+view.Venda ..> java.util.Date
+view.Venda ..> java.util.logging.Level
+view.Venda ..> java.util.logging.Logger
+view.Venda --|> javax.swing.JFrame
+view.Venda ..> javax.swing.JOptionPane
+view.Venda ..> javax.swing.table.DefaultTableModel
+view.Venda ..> model.bean.Pagamento
+view.Venda ..> model.bean.Produto
+view.Venda ..> model.bean.VendaProduto
+view.Venda ..> model.dao.EstoqueProdutoDAO
+view.Venda ..> model.dao.VendaDAO
+view.cadastroCliente ..> java.lang.SuppressWarnings
+view.cadastroCliente --|> javax.swing.JFrame
+view.cadastroCliente ..> javax.swing.JOptionPane
+view.cadastroCliente ..> javax.swing.table.DefaultTableModel
+view.cadastroCliente ..> model.bean.Cliente
+view.cadastroCliente ..> model.dao.ClienteDAO
+@enduml
