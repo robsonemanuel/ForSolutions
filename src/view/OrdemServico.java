@@ -1,9 +1,28 @@
 package view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import static java.awt.Component.LEFT_ALIGNMENT;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Orcamento;
 import model.bean.Ordem_Servico;
 import model.bean.Produto;
+import model.dao.EstoqueProdutoDAO;
 import model.dao.OrdemServicoDAO;
 
 /*
@@ -11,7 +30,6 @@ import model.dao.OrdemServicoDAO;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Administrador
@@ -23,6 +41,13 @@ public class OrdemServico extends javax.swing.JFrame {
      */
     public OrdemServico() {
         initComponents();
+
+        EstoqueProdutoDAO dao = new EstoqueProdutoDAO();
+
+        for (Produto p : dao.readOrderByAsc()) {
+            cbPecas.addItem(p);
+
+        }
     }
 
     /**
@@ -57,7 +82,7 @@ public class OrdemServico extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Peças Utilizadas:");
+        jLabel4.setText("Componentes :");
 
         txtDescDef.setColumns(20);
         txtDescDef.setRows(5);
@@ -69,7 +94,7 @@ public class OrdemServico extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Descrição Do Produto:");
+        jLabel8.setText("Descrição Do aparelho:");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,7 +132,7 @@ public class OrdemServico extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jtPeca);
 
-        btnAdd.setText("Adicionar Peça");
+        btnAdd.setText("Adicionar Componente");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -159,21 +184,20 @@ public class OrdemServico extends javax.swing.JFrame {
                             .addGroup(jDesktopPane3Layout.createSequentialGroup()
                                 .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbPecas, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jDesktopPane3Layout.createSequentialGroup()
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cbPecas, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane3Layout.createSequentialGroup()
-                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtDescProd))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane3Layout.createSequentialGroup()
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDesktopPane3Layout.createSequentialGroup()
@@ -248,6 +272,86 @@ public class OrdemServico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbPecasKeyPressed
 
+    public void geraPdf() {
+        OrdemServicoDAO ordDao = new OrdemServicoDAO();
+        Document documento = new Document();
+
+        Date dataHoraAtual = new Date();
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+
+        try {
+
+            PdfWriter.getInstance(documento, new FileOutputStream("Ordem de Servico.pdf"));
+
+            documento.open();
+            Font fontCabecalho = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD,
+                    BaseColor.BLUE);
+            Font dadosCliente = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD,
+                    BaseColor.BLACK);
+            Font dadosLogo = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD,
+                    BaseColor.BLUE);
+            Paragraph logo = new Paragraph("For Solutions", dadosLogo);
+            logo.setAlignment((int) LEFT_ALIGNMENT);
+            documento.add(logo);
+            Paragraph cabecalho = new Paragraph("Ordem de Serviço", fontCabecalho);
+            cabecalho.setAlignment(Element.ALIGN_CENTER);
+            documento.add(cabecalho);
+             Paragraph nServ = new Paragraph("Ordem de Serviço Nº: " + ordDao.readUltimoId());
+            documento.add(nServ);
+            Paragraph divisor = new Paragraph("_______________________________________________________________________");
+            Paragraph dados = new Paragraph("Dados do cliente ", dadosCliente);
+            dados.setAlignment(Element.ALIGN_CENTER);
+            documento.add(divisor);
+            documento.add(dados);
+            Paragraph nomeCli = new Paragraph("Nome do cliente: " + txtNomeCli.getText());
+            documento.add(nomeCli);
+            Paragraph docData = new Paragraph("Data: " + data);
+            documento.add(docData);
+            Paragraph docHora = new Paragraph("Hora: " + hora);
+            documento.add(docHora);
+            Paragraph div3 = new Paragraph("_______________________________________________________________________");
+            documento.add(div3);
+            Paragraph descriModel = new Paragraph("Informações do Aparelho: ", dadosCliente);
+            descriModel.setAlignment(Element.ALIGN_CENTER);
+            documento.add(descriModel);
+            Paragraph modelo = new Paragraph("Modelo do Aparelho: " + txtDescProd.getText());
+            documento.add(modelo);
+            Paragraph div = new Paragraph("_______________________________________________________________________");
+            documento.add(div);
+            Paragraph info = new Paragraph("Dados do Serviço ", dadosCliente);
+            info.setAlignment(Element.ALIGN_CENTER);
+            documento.add(info);
+            Paragraph def = new Paragraph("Descrição dos defeitos: " + txtDescDef.getText());
+            documento.add(def);
+            for (int i = 0; i < jtPeca.getRowCount(); i++) {
+                String desc = jtPeca.getValueAt(i, 0).toString();
+                String quantidade = jtPeca.getValueAt(i, 1).toString();
+                Paragraph pecas = new Paragraph("Descrição das Peças: " + desc +"\n"+ " Quantidade: " + quantidade + "\n");
+                documento.add(pecas);
+            }
+
+        } catch (FileNotFoundException | DocumentException ex) {
+            JOptionPane.showMessageDialog(null, "erro ao gerar o pdf " + ex);
+        } finally {
+            documento.close();
+        }
+        try {
+            Desktop.getDesktop().open(new File("Ordem de Servico.pdf")); // vai abrir o pdf assim que for gerado
+        } catch (IOException ex) {
+            Logger.getLogger(TelaOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void limpaTabela() {
+        DefaultTableModel tblRemove = (DefaultTableModel) jtPeca.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 1; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(0);
+            }
+        }
+    }
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         Produto produto = (Produto) cbPecas.getSelectedItem();
         DefaultTableModel dtmProdutos = (DefaultTableModel) jtPeca.getModel();
@@ -257,17 +361,36 @@ public class OrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-       
+
         Ordem_Servico os = new Ordem_Servico();
         OrdemServicoDAO osDao = new OrdemServicoDAO();
-        
+
         os.setNome(txtNomeCli.getText());
         os.setDescri_prod(txtDescProd.getText());
         os.setDescri_def(txtDescDef.getText());
-        
+        validaCampo();
         osDao.save(os);
+        geraPdf();
+        limpaTabela();
+        limpaCampo();
+
     }//GEN-LAST:event_btnGravarActionPerformed
 
+    public void validaCampo() {
+        if (txtNomeCli.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o nome do cliente para continuar");
+        } else if (txtDescProd.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe a descrição do aparelho para continuar");
+        } else if (txtDescDef.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe a descrição do defeito para continuar");
+        }
+    }
+
+    public void limpaCampo() {
+        txtNomeCli.setText("");
+        txtDescDef.setText("");
+        txtDescProd.setText("");
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
