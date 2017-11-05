@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model.dao;
 
 import connection.ConnectionFactory;
@@ -8,41 +13,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.bean.Departamento;
+import model.bean.Cargo;
 
 /**
  *
  * @author LUCAS
  */
-public class DepartamentoDAO {
+public class CargoDAO {
     
-     public Departamento select(String descricao){
+    
+     public Cargo select(){
        Connection con = ConnectionFactory.getConnection();
        PreparedStatement stmt = null;
        ResultSet rs = null;
-       String desc = descricao.toUpperCase();
-       Departamento d = new Departamento();
+       
+       Cargo c = new Cargo();
         try {
-            stmt = con.prepareStatement("SELECT Upper(descricao) as descri,iddepartamento FROM departamento WHERE descricao = ?");   
-            stmt.setString(1,desc);
+            stmt = con.prepareStatement("SELECT * FROM Cargo");            
             rs = stmt.executeQuery();
             
-            while(rs.next()){
-                                
-                d.setId((rs.getInt("iddepartamento")));                                                               
-                d.setDescricao((rs.getString("descri")));                                                               
-                                                               
-                  
-                
-                //JOptionPane.showMessageDialog(null,"Selete de funconario com sucesso !");
-                                                        
+            while(rs.next()){                                
+                c.setNome((rs.getString("nome_cargo")));                                                               
+                c.setSalario((rs.getFloat("salario")));   
+                c.setId((rs.getInt("id")));   
+                c.setId((rs.getInt("iddepartamento")));   
+                //JOptionPane.showMessageDialog(null,"Selete de funconario com sucesso !");                                                       
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados de id login ->"+ex);
         }finally{
            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-         return d;
+         return c;
     }
      
      public Boolean delete(int id){
@@ -51,7 +53,7 @@ public class DepartamentoDAO {
        boolean check = false;
        
         try {
-            stmt = con.prepareStatement("DELETE FROM departamento WHERE iddepartamento = ?");           
+            stmt = con.prepareStatement("DELETE FROM cargo WHERE idcargo = ?");           
             stmt.setInt(1,id);          
             stmt.executeUpdate();            
             JOptionPane.showMessageDialog(null, "Excluido com Sucesso");
@@ -66,15 +68,17 @@ public class DepartamentoDAO {
         return check;
     }
      
-     public Boolean update(int id,String desc){
+     public Boolean update(int id,String cargo,Float salario,int idDp){
        Connection con = ConnectionFactory.getConnection();
        PreparedStatement stmt = null;
        boolean check = false;
        
         try {
-            stmt = con.prepareStatement("UPDATE departamento SET descricao=? WHERE iddepartamento=?");
-            stmt.setString(1,desc);                                                           
-            stmt.setInt(2,id);                                                           
+            stmt = con.prepareStatement("UPDATE cargo SET nome_cargo=?,salario=?,iddepartamento=? WHERE idcargo=?");
+            stmt.setString(1,cargo);                                                           
+            stmt.setFloat(2,salario);                                                           
+            stmt.setInt(3,idDp);                                                           
+            stmt.setInt(4,id);                                                           
             stmt.executeUpdate();            
             JOptionPane.showMessageDialog(null, "Atualizado com Sucesso");
             check = true;            
@@ -88,43 +92,47 @@ public class DepartamentoDAO {
         return check;
     }
      
-     public List<Departamento> read(){
+     public List<Cargo> read(){
        Connection con = ConnectionFactory.getConnection();
        PreparedStatement stmt = null;
        ResultSet rs = null;
        
-       List<Departamento> dpto = new ArrayList();
+       List<Cargo> cargo = new ArrayList();
         try {
-            stmt = con.prepareStatement("SELECT * FROM departamento");            
+            stmt = con.prepareStatement("SELECT * FROM cargo");            
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Departamento d = new Departamento();             
-                d.setId((rs.getInt("iddepartamento")));                                                               
-                d.setDescricao((rs.getString("descricao"))); 
-                dpto.add(d);                                                                       
+                Cargo d = new Cargo();             
+                d.setId((rs.getInt("idcargo")));                                                               
+                d.setNome((rs.getString("nome_cargo"))); 
+                d.setSalario((rs.getFloat("salario"))); 
+                d.setDpto((rs.getInt("iddepartamento"))); 
+                cargo.add(d);                                                                       
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados de id login ->"+ex);
         }finally{
            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-         return dpto;
+         return cargo;
     }
      
-     public Boolean insert(Departamento d){
+     public Boolean insert(Cargo c){
          boolean check = false;
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO departamento (descricao) VALUES (?)");
-            stmt.setString(1,d.getDescricao());            
+            stmt = con.prepareStatement("INSERT INTO cargo (nome_cargo,salario,iddepartamento) VALUES (?,?,?)");
+            stmt.setString(1,c.getNome());            
+            stmt.setFloat(2,c.getSalario());            
+            stmt.setInt(3,c.getDpto());            
             stmt.executeUpdate();   
             check = true;
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao cadastrar Departamento: "+ex);
+            JOptionPane.showMessageDialog(null,"Erro ao cadastrar Cargos: "+ex);
             check = false;
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
