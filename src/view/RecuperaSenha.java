@@ -45,7 +45,8 @@ public class RecuperaSenha extends javax.swing.JFrame {
         edt_cpf = new javax.swing.JFormattedTextField();
         this.edt_cpf = new JFormattedTextField(ftmCpf);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("RECUPERAR SENHA");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

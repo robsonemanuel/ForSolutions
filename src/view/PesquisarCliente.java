@@ -37,7 +37,7 @@ public class PesquisarCliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar Cliente");
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 204));
@@ -59,6 +59,11 @@ public class PesquisarCliente extends javax.swing.JFrame {
         jLabel4.setText("Serviços realizados:");
 
         jButton1.setText("Sair");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Pesquisar");
 
@@ -128,6 +133,10 @@ public class PesquisarCliente extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(534, 358));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

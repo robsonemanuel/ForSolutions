@@ -37,7 +37,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar Produto");
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 204));
@@ -132,7 +132,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    System.exit(0);
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
