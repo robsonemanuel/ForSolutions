@@ -97,8 +97,8 @@ public class Venda extends javax.swing.JFrame {
             documento.add(logo2);
             for(int i=0; i<jtVendaProdutos.getRowCount(); i++){
                  String desc = jtVendaProdutos.getValueAt(i,0).toString();
-                 int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,1).toString());
-                 float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,2).toString());
+                 int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,2).toString());
+                 float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,1).toString());
                  Paragraph produtos = new Paragraph("Descrição Produto: "+desc + "\n" + "Valor: R$" + valor + "\n" + "Quant: " + quantidade + "\n");
                  documento.add(produtos);
             }
@@ -195,8 +195,8 @@ public class Venda extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Vendas");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("VENDAS");
 
         jDesktopPane1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -537,6 +537,7 @@ public class Venda extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtquantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtquantidadeActionPerformed
@@ -593,7 +594,7 @@ public class Venda extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged

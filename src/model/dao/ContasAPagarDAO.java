@@ -82,5 +82,66 @@ public class ContasAPagarDAO {
      }
     }
      
+      public void delete(ContaPagar c){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       
+        try {
+            stmt = con.prepareStatement("delete from contaspagar where id=?");
+            stmt.setInt(1, c.getCodigo());
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null,"Excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao excluir: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt);
+     }
+    }
+      
+    public float somaDespesas(){
+       
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       float valor=0;
+        try {
+           
+            stmt = con.prepareStatement("select sum(valor) from contaspagar where year(data_vencimento) = year(now()) and month(data_vencimento) = month(now())");
+            rs = stmt.executeQuery();
+             while(rs.next()){
+               valor = rs.getFloat("sum(valor)");
+             }
+         
+        } catch (SQLException ex) {
+           
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt,rs);
+     }
+         return valor;
+    }
+    
+     public float somaDespesasSalFuncionarios(){
+       
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       float valor=0;
+        try {
+           
+            stmt = con.prepareStatement("select sum(salario) from cargo INNER JOIN funcionario ON cargo.idcargo = funcionario.idcargo");
+            rs = stmt.executeQuery();
+             while(rs.next()){
+               valor = rs.getFloat("sum(salario)");
+             }
+         
+        } catch (SQLException ex) {
+           
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt,rs);
+     }
+         return valor;
+    }  
+     
      
 }

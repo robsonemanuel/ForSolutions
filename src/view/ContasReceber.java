@@ -5,17 +5,36 @@
  */
 package view;
 
+import java.awt.Color;
+import model.dao.ContasAPagarDAO;
+import model.dao.ContasAReceberDAO;
+
 /**
  *
  * @author BOBSON
  */
 public class ContasReceber extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ContasReceber
-     */
+     
     public ContasReceber() {
         initComponents();
+        ContasAPagarDAO daoDespesa = new ContasAPagarDAO();
+        float resulDespesa = daoDespesa.somaDespesas() + daoDespesa.somaDespesasSalFuncionarios();
+        lblDespesa.setText("Despesa do Mes: R$" + resulDespesa);
+        
+        ContasAReceberDAO daoLucro = new ContasAReceberDAO();
+        float resulLucro = daoLucro.somaLucro();
+        lblLucro.setText("Lucro do Mes: R$" + resulLucro);
+        
+        float resul = resulLucro - resulDespesa;
+        
+        if(resul>0){
+           lblResulFinal.setForeground(Color.green);
+           lblResulFinal.setText("Saldo Positivo: R$" + resul);
+        }else{
+           lblResulFinal.setForeground(Color.red);
+           lblResulFinal.setText("Saldo Negativo: R$" + resul);
+        }
     }
 
     /**
@@ -28,18 +47,38 @@ public class ContasReceber extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        lblDespesa = new javax.swing.JLabel();
+        lblLucro = new javax.swing.JLabel();
+        lblResulFinal = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CONTAS A RECEBER");
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblResulFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 166, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 326, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(lblResulFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -58,6 +97,7 @@ public class ContasReceber extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -97,5 +137,8 @@ public class ContasReceber extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel lblDespesa;
+    private javax.swing.JLabel lblLucro;
+    private javax.swing.JLabel lblResulFinal;
     // End of variables declaration//GEN-END:variables
 }

@@ -95,8 +95,8 @@ public class cadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de Cliente");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CADASTRO DE CLIENTE");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CPF:");
@@ -254,7 +254,6 @@ public class cadastroCliente extends javax.swing.JFrame {
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                         .addGap(135, 135, 135)
@@ -360,6 +359,7 @@ public class cadastroCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

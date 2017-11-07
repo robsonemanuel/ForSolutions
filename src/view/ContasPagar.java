@@ -74,6 +74,7 @@ public class ContasPagar extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,7 +102,8 @@ public class ContasPagar extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CONTAS A PAGAR");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Descrição");
@@ -131,7 +133,7 @@ public class ContasPagar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "DESCRIÇÃO", "VALOR", "DATA"
+                "ID", "DESCRIÇÃO", "VALOR", "DATA VENCIMENTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -142,12 +144,24 @@ public class ContasPagar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jTable3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTable3KeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(jTable3);
+
+        jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtDesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -158,6 +172,7 @@ public class ContasPagar extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -166,10 +181,6 @@ public class ContasPagar extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,12 +191,16 @@ public class ContasPagar extends javax.swing.JFrame {
                             .addComponent(edt_dtad, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtDesc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(598, 598, 598))
+                                .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton3)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,13 +217,16 @@ public class ContasPagar extends javax.swing.JFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(edt_dtad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(158, 158, 158))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,7 +236,7 @@ public class ContasPagar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1454, 1454, 1454))
+                .addGap(1735, 1735, 1735))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,6 +247,7 @@ public class ContasPagar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -248,8 +267,8 @@ public class ContasPagar extends javax.swing.JFrame {
          c.setValor(Float.parseFloat(txtValor.getText()));
          c.setData_venc(edt_dtad.getText());
          dao.create(c);
-         readJTable();
          limpaCampos();
+         readJTable();
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -279,16 +298,40 @@ public class ContasPagar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTable3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyReleased
-       if (jTable3.getSelectedRow() != -1) {
-
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        if(jTable3.getSelectedRow() != -1){
             txtDesc.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 1).toString());
             txtValor.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 2).toString());
-            edt_dtad.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 3).toString());
-           
+            String data = jTable3.getValueAt(jTable3.getSelectedRow(), 3).toString().replaceAll("-","");
+            edt_dtad.setText(data);
+            
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
 
+    private void jTable3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyReleased
+       if(jTable3.getSelectedRow() != -1){
+            txtDesc.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 1).toString());
+            txtValor.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 2).toString());
+            String data = jTable3.getValueAt(jTable3.getSelectedRow(), 3).toString().replaceAll("-","");
+            edt_dtad.setText(data);
+           
         }
     }//GEN-LAST:event_jTable3KeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(jTable3.getSelectedRow() != -1){
+             ContaPagar c = new ContaPagar();
+            ContasAPagarDAO dao = new ContasAPagarDAO();
+        
+            c.setCodigo((int)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
+            dao.delete(c);
+            limpaCampos();
+            readJTable();
+            
+        }else{
+          JOptionPane.showMessageDialog(null,"Selecione uma conta para excluir");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
      public void limpaCampos(){
        txtDesc.setText("");
        txtValor.setText("");
@@ -333,6 +376,7 @@ public class ContasPagar extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField edt_dtad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
