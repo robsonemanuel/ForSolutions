@@ -51,20 +51,8 @@ public class ContasReceber extends javax.swing.JFrame {
         lblLucro = new javax.swing.JLabel();
         lblResulFinal = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblDespesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDespesa.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblLucro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblLucro.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblResulFinal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblResulFinal.setForeground(new java.awt.Color(255, 255, 255));
-
-        jDesktopPane1.setLayer(lblDespesa, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(lblLucro, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(lblResulFinal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CONTAS A RECEBER");
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -109,6 +97,7 @@ public class ContasReceber extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

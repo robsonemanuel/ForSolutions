@@ -91,7 +91,8 @@ public class TelaOrcamento extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ORÇAMENTO");
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -326,6 +327,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     public void geraPdf() {
@@ -498,7 +500,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAddActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void limpaCampo() {

@@ -97,7 +97,8 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         btn_excluir = new javax.swing.JButton();
         btn_pesquisar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CADASTRO DE FUNCIONARIO");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -363,6 +364,7 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
    
@@ -375,8 +377,7 @@ public class CadastraFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_comboCargoActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        System.exit(0);
-        
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     public boolean verificaCampo(){
