@@ -97,8 +97,8 @@ public class Venda extends javax.swing.JFrame {
             documento.add(logo2);
             for(int i=0; i<jtVendaProdutos.getRowCount(); i++){
                  String desc = jtVendaProdutos.getValueAt(i,0).toString();
-                 int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,1).toString());
-                 float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,2).toString());
+                 int quantidade = Integer.parseInt(jtVendaProdutos.getValueAt(i,2).toString());
+                 float valor = Float.parseFloat(jtVendaProdutos.getValueAt(i,1).toString());
                  Paragraph produtos = new Paragraph("Descrição Produto: "+desc + "\n" + "Valor: R$" + valor + "\n" + "Quant: " + quantidade + "\n");
                  documento.add(produtos);
             }
