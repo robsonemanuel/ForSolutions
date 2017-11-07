@@ -8,9 +8,19 @@ public class Ordem_Servico {
   private Date data;
   private String descri_def;
   private String nome;
+  private int id;
 
     public Ordem_Servico() {
     }
+
+    public Ordem_Servico(String descri_prod, String descri_def, String nome, int id) {
+        this.descri_prod = descri_prod;        
+        this.descri_def = descri_def;
+        this.nome = nome;
+        this.id = id;
+    }
+    
+    
 
     public Ordem_Servico(String descri_prod, Date data, String descri_def) {
         this.descri_prod = descri_prod;
@@ -50,9 +60,17 @@ public class Ordem_Servico {
     public void setDescri_def(String descri_def) {
         this.descri_def = descri_def;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
   
   
-  
+    
 
     
   

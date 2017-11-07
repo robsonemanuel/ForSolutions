@@ -8,6 +8,8 @@ public class Produto {
     private int quantidade;
     private float valor;
     private String data_entrada;
+    
+    
     public Produto() {
     }
     

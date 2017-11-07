@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.bean.Orcamento;
 import model.bean.Ordem_Servico;
@@ -69,4 +71,59 @@ public class OrdemServicoDAO {
       
        return valor;
      }
+    
+    
+     public List<Ordem_Servico> read(){      
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       int valor=0;
+       List<Ordem_Servico> listOs = new ArrayList<>();
+       Ordem_Servico os;
+       
+        try {
+           
+            stmt = con.prepareStatement("select * from ordem_servico WHERE finalizada IS NULL");
+            rs = stmt.executeQuery();
+             while(rs.next()){
+               os =  new Ordem_Servico();
+               os.setId(rs.getInt("id_ordem_servico"));
+               os.setDescri_prod(rs.getString("descri_prod"));
+               os.setDescri_def(rs.getString("descri_def"));
+               os.setNome(rs.getString("nome_cliente"));
+               listOs.add(os);
+             }
+         
+        } catch (SQLException ex) {
+           
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt,rs);
+     }
+      
+       return listOs;
+     }
+     
+      public Boolean updateS(int id){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       boolean check = false;
+       
+        try {
+            stmt = con.prepareStatement("UPDATE ordem_servico SET finalizada=? WHERE id_ordem_servico=?");
+            stmt.setString(1,"s");                                                           
+            stmt.setInt(2,id);                                                                       
+            stmt.executeUpdate();            
+            //JOptionPane.showMessageDialog(null, "Atualizado com Sucesso");
+            check = true;            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Atualizar"+ex);
+            check = false;
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return check;
+    }
+     
+     
     }
