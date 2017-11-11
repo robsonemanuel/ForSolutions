@@ -9,12 +9,12 @@ public class Manutencao {
     private int numero_os;
     private String dt_inicio;
     private String dt_fim;
-    private List<Produto> produtos;
+    private String produtos;
 
     public Manutencao() {
     }   
 
-    public Manutencao(String descricao, String nmTecnico, int numero_os, String dt_inicio, String dt_fim, List<Produto> produtos) {
+    public Manutencao(String descricao, String nmTecnico, int numero_os, String dt_inicio, String dt_fim, String produtos) {
         this.descricao = descricao;
         this.nmTecnico = nmTecnico;
         this.numero_os = numero_os;
@@ -63,11 +63,11 @@ public class Manutencao {
         this.dt_fim = dt_fim;
     }
 
-    public List<Produto> getProdutos() {
+    public String getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Produto> produtos) {
+    public void setProdutos(String produtos) {
         this.produtos = produtos;
     }
     
