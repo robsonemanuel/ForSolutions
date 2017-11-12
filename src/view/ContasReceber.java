@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import model.bean.ContaPagar;
 import model.dao.ContasAPagarDAO;
 import model.dao.ContasAReceberDAO;
 
@@ -18,7 +20,13 @@ public class ContasReceber extends javax.swing.JFrame {
      
     public ContasReceber() {
         initComponents();
+        
+        
         ContasAPagarDAO daoDespesa = new ContasAPagarDAO();
+        
+        for(ContaPagar c: daoDespesa.Ano()){
+           cbAno.addItem(c);
+        }
         float resulDespesa = daoDespesa.somaDespesas() + daoDespesa.somaDespesasSalFuncionarios();
         lblDespesa.setText("Despesa do Mes: R$" + resulDespesa);
         
@@ -30,10 +38,10 @@ public class ContasReceber extends javax.swing.JFrame {
         
         if(resul>0){
            lblResulFinal.setForeground(Color.green);
-           lblResulFinal.setText("Saldo Positivo: R$" + resul);
+           lblResulFinal.setText("Saldo Positivo: R$" + Math.ceil(resul));
         }else{
            lblResulFinal.setForeground(Color.red);
-           lblResulFinal.setText("Saldo Negativo: R$" + resul);
+           lblResulFinal.setText("Saldo Negativo: R$" + Math.ceil(resul));
         }
     }
 
@@ -50,9 +58,55 @@ public class ContasReceber extends javax.swing.JFrame {
         lblDespesa = new javax.swing.JLabel();
         lblLucro = new javax.swing.JLabel();
         lblResulFinal = new javax.swing.JLabel();
+        cbMes = new javax.swing.JComboBox<>();
+        cbAno = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CONTAS A RECEBER");
+
+        lblDespesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDespesa.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblLucro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblLucro.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblResulFinal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblResulFinal.setForeground(new java.awt.Color(255, 255, 255));
+
+        cbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecione o Mes--", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cbMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMesActionPerformed(evt);
+            }
+        });
+
+        cbAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecione o Ano--" }));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Mes");
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Ano");
+        jLabel2.setToolTipText("");
+
+        jButton1.setText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jDesktopPane1.setLayer(lblDespesa, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(lblLucro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(lblResulFinal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(cbMes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(cbAno, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -63,19 +117,43 @@ public class ContasReceber extends javax.swing.JFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblResulFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 166, Short.MAX_VALUE)))
+                        .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbAno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(88, 88, 88)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(90, 90, 90)
+                .addComponent(jLabel2)
+                .addGap(68, 68, 68))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(lblDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton1)))
                 .addGap(41, 41, 41)
                 .addComponent(lblResulFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -85,9 +163,7 @@ public class ContasReceber extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +175,35 @@ public class ContasReceber extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       ContaPagar contapagar = (ContaPagar) cbAno.getSelectedItem();
+       Object mes = cbMes.getSelectedItem();
+       
+        ContasAPagarDAO daoDespesa = new ContasAPagarDAO();
+        
+        float resulDespesa = daoDespesa.somaDespesasSelecionada(contapagar.getData_venc(), (String) mes)+ daoDespesa.somaDespesasSalFuncionarios();
+        lblDespesa.setText("Despesa do Mes: R$" + resulDespesa);
+        
+        ContasAReceberDAO daoLucro = new ContasAReceberDAO();
+        float resulLucro = daoLucro.somaLucroSelecionado(contapagar.getData_venc(), (String) mes);
+        lblLucro.setText("Lucro do Mes: R$" + resulLucro);
+        
+        float resul = resulLucro - resulDespesa;
+        
+        if(resul>0){
+           lblResulFinal.setForeground(Color.green);
+           lblResulFinal.setText("Saldo Positivo: R$" + Math.ceil(resul));
+        }else{
+           lblResulFinal.setForeground(Color.red);
+           lblResulFinal.setText("Saldo Negativo: R$" + Math.ceil(resul));
+        }
+     
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,7 +241,12 @@ public class ContasReceber extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Object> cbAno;
+    private javax.swing.JComboBox<String> cbMes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblDespesa;
     private javax.swing.JLabel lblLucro;
     private javax.swing.JLabel lblResulFinal;

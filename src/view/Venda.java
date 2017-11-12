@@ -60,7 +60,7 @@ public class Venda extends javax.swing.JFrame {
           jRadioButton1.setEnabled(false);
           jRadioButton2.setEnabled(false);
           jRadioButton3.setEnabled(false);
-          
+          txtpreco.setEnabled(false);
         
         
     }
@@ -142,14 +142,12 @@ public class Venda extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtpreco = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         cbprodutos = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -241,8 +239,6 @@ public class Venda extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Limpar");
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Descrição:");
@@ -289,14 +285,6 @@ public class Venda extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Parcelas:");
 
-        jButton3.setText("Sair");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        cbprodutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um Produto" }));
         cbprodutos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbprodutosItemStateChanged(evt);
@@ -352,14 +340,12 @@ public class Venda extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtpreco, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCheckBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCheckBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCheckBox3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(cbprodutos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -430,11 +416,8 @@ public class Venda extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(84, 84, 84)))
                 .addGap(33, 33, 33))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -491,10 +474,7 @@ public class Venda extends javax.swing.JFrame {
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
 
@@ -557,6 +537,13 @@ public class Venda extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if(txtpreco.getText().trim().isEmpty()){
+           JOptionPane.showMessageDialog(null,"Informe o Preço!!");
+        }else if(txtquantidade.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Informe a quantidade!!");
+        }else{
+        
+        
         Produto produto = (Produto) cbprodutos.getSelectedItem();
         DefaultTableModel dtmProdutos = ( DefaultTableModel) jtVendaProdutos.getModel(); 
         float resul = Float.parseFloat(txtpreco.getText()) * Float.parseFloat(txtquantidade.getText());
@@ -570,7 +557,7 @@ public class Venda extends javax.swing.JFrame {
        }
        
         jTextTotal.setText(""+count);
-        
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void cbprodutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbprodutosMouseClicked
@@ -592,10 +579,6 @@ public class Venda extends javax.swing.JFrame {
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         boolean Selecionado = jCheckBox1.isSelected();
@@ -687,6 +670,7 @@ public class Venda extends javax.swing.JFrame {
        }
        
         gerarPdf();
+        limpaCampos();
      }
      if(soma<total){
         JOptionPane.showMessageDialog(null,"Valor informado menor que o total!!");
@@ -701,6 +685,28 @@ public class Venda extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpaCampos(){
+      
+      // txtpreco.setText("");
+       txtquantidade.setText("");
+       jtDinheiro.setText("");
+       jtDebito.setText("");
+       jtCredito.setText("");
+       jTextTotal.setText("");
+       jtDinheiro.setEnabled(false);
+       jtDebito.setEnabled(false);
+       jtCredito.setEnabled(false);
+       jRadioButton1.setEnabled(false);
+       jRadioButton2.setEnabled(false);
+       jRadioButton3.setEnabled(false);
+       jCheckBox1.setSelected(false); 
+       jCheckBox2.setSelected(false);
+       jCheckBox3.setSelected(false); 
+       DefaultTableModel tabela = (DefaultTableModel)jtVendaProdutos.getModel();
+       tabela.setNumRows(0);
+     
+      
+    }
     private void cbprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprodutosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbprodutosActionPerformed
@@ -757,8 +763,6 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<Object> cbprodutos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;

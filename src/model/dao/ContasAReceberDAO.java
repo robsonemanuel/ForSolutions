@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 
@@ -30,6 +31,31 @@ public class ContasAReceberDAO {
             ConnectionFactory.closeConnection(con,stmt,rs);
      }
          return valor;
-    }  
+    }
+    
+     public float somaLucroSelecionado(String ano,String mes){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       float val=0;
+        try {
+            stmt = con.prepareStatement("select sum(valor) from pagamento where year(data_venda) = ? and month(data_venda) =?");
+            stmt.setString(1,ano);
+            stmt.setString(2,mes);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                                
+                val = (rs.getFloat("sum(valor)"));                                               
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados->"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return val;
+    }
    
 }

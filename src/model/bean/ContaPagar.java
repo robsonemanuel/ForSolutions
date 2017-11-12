@@ -48,6 +48,11 @@ public class ContaPagar {
     public void setData_venc(String data_venc) {
         this.data_venc = data_venc;
     }
+
+    @Override
+    public String toString() {
+        return getData_venc(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

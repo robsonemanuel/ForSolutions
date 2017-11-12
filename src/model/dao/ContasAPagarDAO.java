@@ -121,6 +121,31 @@ public class ContasAPagarDAO {
          return valor;
     }
     
+    public float somaDespesasSelecionada(String ano,String mes){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       float val=0;
+        try {
+            stmt = con.prepareStatement(" select sum(valor) from contaspagar where year(data_vencimento) = ? and month(data_vencimento) =?");
+            stmt.setString(1,ano);
+            stmt.setString(2,mes);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                                
+                val = (rs.getFloat("sum(valor)"));                                               
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados->"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return val;
+    }
+    
      public float somaDespesasSalFuncionarios(){
        
        Connection con = ConnectionFactory.getConnection();
@@ -141,7 +166,30 @@ public class ContasAPagarDAO {
             ConnectionFactory.closeConnection(con,stmt,rs);
      }
          return valor;
-    }  
+    }
+     
+      public List<ContaPagar> Ano(){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       List<ContaPagar> contas = new ArrayList<>();
+       
+         try {
+             stmt = con.prepareStatement("SELECT DISTINCT YEAR(data_vencimento) FROM contaspagar ORDER BY YEAR(data_vencimento)");
+             rs = stmt.executeQuery();
+             while(rs.next()){
+                ContaPagar conta = new ContaPagar();
+                conta.setData_venc(rs.getString("YEAR(data_vencimento)"));
+                contas.add(conta);
+             }
+         } catch (SQLException ex) {
+             Logger.getLogger(ContasAPagarDAO.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             ConnectionFactory.closeConnection(con, stmt, rs);
+         }
+       return contas;
+    }
      
      
 }
