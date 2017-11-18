@@ -472,6 +472,9 @@ public class TelaManutencao extends javax.swing.JFrame {
             m.setDescricao(text_obs.getText());
             m.setDt_inicio(edt_dt_inicio.getText());
             m.setDt_fim(edt_dt_fim.getText());
+            if(pecas.equals("")){
+               pecas = "0";
+            }
             m.setProdutos(pecas);
             if(mdao.insert(m, edt_nmCliente.getText())){
                 if(osdao.updateS(id)){
