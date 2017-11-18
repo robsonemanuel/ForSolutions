@@ -404,7 +404,7 @@ public class TelaOrcamento extends javax.swing.JFrame {
             Paragraph div2 = new Paragraph("_______________________________________________________________________");
             div.setAlignment(Element.ALIGN_CENTER);
             documento.add(div2);
-            Paragraph docData = new Paragraph("Conserto reailzado em: " + data);
+            Paragraph docData = new Paragraph("Concerto reailzado em: " + data);
             documento.add(docData);
             Paragraph docHora = new Paragraph("Hora: " + hora);
             documento.add(docHora);

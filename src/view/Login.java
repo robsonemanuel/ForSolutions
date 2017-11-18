@@ -167,7 +167,7 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(739, 279));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public static int level= -1;
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nomeActionPerformed
@@ -180,6 +180,7 @@ public class Login extends javax.swing.JFrame {
         
         if(dao.checkLogin(login, senha)){
             if(!(dao.VerificaNewSenha(login,senha))){
+                level = dao.verificaNivel(login, senha);
                 new Principal().setVisible(true);
                 this.dispose();
             }else{
