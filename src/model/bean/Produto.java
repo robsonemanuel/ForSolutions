@@ -65,6 +65,13 @@ public class Produto {
     public String toString(){
        return getDescricao();
     }
+    
+    public int removeEstoque(int qtd){
+        int total = this.getQuantidade() - qtd;
+        this.setQuantidade(total);
+        
+        return this.getQuantidade();
+    }
  
  
 }

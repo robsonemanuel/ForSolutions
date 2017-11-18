@@ -312,10 +312,14 @@ public class CadastraCargo extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_alterarActionPerformed
 
     private void table_cargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_cargosMouseClicked
-         if(table_cargos.getSelectedRow() != -1F){            
+        CargoDAO cdao = new CargoDAO();        ; 
+        if(table_cargos.getSelectedRow() != -1F){            
              edt_cargo.setText((String)(table_cargos.getValueAt(table_cargos.getSelectedRow(),1)));
              float x =(((Float)(table_cargos.getValueAt(table_cargos.getSelectedRow(),2))));
-             edt_salario.setText(x+"");             
+             int cod =(((Integer)(table_cargos.getValueAt(table_cargos.getSelectedRow(),3))));
+             edt_salario.setText(x+"");  
+             String departamento = cdao.selectDpto(cod);
+             combo_departamento.getModel().setSelectedItem(departamento);
         }
     }//GEN-LAST:event_table_cargosMouseClicked
 

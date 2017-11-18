@@ -118,6 +118,8 @@ public class CargoDAO {
          return cargo;
     }
      
+     
+     
      public Boolean insert(Cargo c){
          boolean check = false;
         Connection con = ConnectionFactory.getConnection();
@@ -138,6 +140,29 @@ public class CargoDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return check;
+    }
+     
+         public String  selectDpto(int cod){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+        String dpt = "";
+    
+        try {
+            stmt = con.prepareStatement("SELECT d.descricao as 'descricao' FROM departamento as d WHERE d.iddepartamento=?");
+            stmt.setInt(1,cod);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){                                
+                dpt = ((rs.getString("descricao")));                                               
+             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados de id login ->"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return dpt;
     }
     
 }
