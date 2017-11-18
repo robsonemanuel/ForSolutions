@@ -124,6 +124,37 @@ public class OrdemServicoDAO {
         }
         return check;
     }
+      
+      public List<Ordem_Servico> selectAll(int num){      
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;      
+       List<Ordem_Servico> listOs = new ArrayList<>();
+       Ordem_Servico os;
+       
+        try {
+           
+            stmt = con.prepareStatement("select * from ordem_servico WHERE id_ordem_servico=?");
+            stmt.setInt(1,num);
+            rs = stmt.executeQuery();
+             while(rs.next()){
+               os =  new Ordem_Servico();               
+               os.setDescri_prod(rs.getString("descri_prod"));
+               os.setDescri_def(rs.getString("descri_def"));
+               os.setData(rs.getDate("data_os"));
+               os.setNome(rs.getString("nome_cliente"));
+               os.setFinalizada(rs.getString("finalizada"));
+               listOs.add(os);
+             }
+         
+        } catch (SQLException ex) {
+           
+        }finally{
+            ConnectionFactory.closeConnection(con,stmt,rs);
+     }
+      
+       return listOs;
+     }
      
      
     }
