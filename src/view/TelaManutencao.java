@@ -27,6 +27,7 @@ import model.dao.OrdemServicoDAO;
  */
 public class TelaManutencao extends javax.swing.JFrame {
     MaskFormatter ftmData;
+    MaskFormatter ftmhr;
     /**
      * Creates new form Manutencao
      */
@@ -97,9 +98,9 @@ public class TelaManutencao extends javax.swing.JFrame {
         try {     ftmData = new MaskFormatter("##/##/####"); } catch (ParseException e) {     e.printStackTrace(); }
         edt_dt_inicio = new javax.swing.JFormattedTextField();
         this.edt_dt_inicio = new JFormattedTextField(ftmData);
-        try {     ftmData = new MaskFormatter("##/##/####"); } catch (ParseException e) {     e.printStackTrace(); }
-        edt_dt_fim = new javax.swing.JFormattedTextField();
-        this.edt_dt_fim = new JFormattedTextField(ftmData);
+        try {     ftmhr = new MaskFormatter("##:##"); } catch (ParseException e) {     e.printStackTrace(); }
+        edt_hora = new javax.swing.JFormattedTextField();
+        this.edt_hora = new JFormattedTextField(ftmhr);
         jLabel10 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txt_pecas = new javax.swing.JTextArea();
@@ -172,11 +173,11 @@ public class TelaManutencao extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Inicio :");
+        jLabel8.setText("Data: ");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Fim:");
+        jLabel9.setText("Horas Gastas :");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,7 +226,7 @@ public class TelaManutencao extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(edt_dt_inicio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(edt_dt_fim, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(edt_hora, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -289,11 +290,9 @@ public class TelaManutencao extends javax.swing.JFrame {
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addComponent(edt_dt_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(edt_dt_fim, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(edt_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addComponent(edt_nmTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,9 +329,9 @@ public class TelaManutencao extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edt_dt_inicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(edt_dt_fim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edt_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +427,7 @@ public class TelaManutencao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha a data de inicio");
             check = false;
         }
-        if(edt_dt_fim.getText().equals("  /  /    ")){
+        if(edt_hora.getText().equals("  /  /    ")){
             JOptionPane.showMessageDialog(null,"Preencha a data de fim");
             check = false;
         }
@@ -440,7 +439,7 @@ public class TelaManutencao extends javax.swing.JFrame {
     }
     
     private void limpaCampo(){
-        edt_dt_fim.setText("");
+        edt_hora.setText("");
         edt_dt_inicio.setText("");
         edt_nmCliente.setText("");
         edt_nmTecnico.setText("");
@@ -471,7 +470,7 @@ public class TelaManutencao extends javax.swing.JFrame {
             m.setNmTecnico(edt_nmTecnico.getText());
             m.setDescricao(text_obs.getText());
             m.setDt_inicio(edt_dt_inicio.getText());
-            m.setDt_fim(edt_dt_fim.getText());
+            m.setHora(edt_hora.getText());
             m.setProdutos(pecas);
             if(mdao.insert(m, edt_nmCliente.getText())){
                 if(osdao.updateS(id)){
@@ -528,8 +527,8 @@ public class TelaManutencao extends javax.swing.JFrame {
     private javax.swing.JButton btn_finalizar;
     private javax.swing.JButton btn_pesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JFormattedTextField edt_dt_fim;
     private javax.swing.JFormattedTextField edt_dt_inicio;
+    private javax.swing.JFormattedTextField edt_hora;
     private javax.swing.JTextField edt_nmCliente;
     private javax.swing.JTextField edt_nmTecnico;
     private javax.swing.JTextField edt_nos;
