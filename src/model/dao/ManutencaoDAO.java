@@ -21,13 +21,13 @@ public class ManutencaoDAO {
         boolean check = false;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO manutencao (descricao,nm_tecnicao,num_os,cliente,inicio,fim,pecas)VALUES (?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO manutencao (descricao,nm_tecnicao,num_os,cliente,data,horas,pecas)VALUES (?,?,?,?,?,?,?)");
             stmt.setString(1,m.getDescricao());
             stmt.setString(2,m.getNmTecnico());
             stmt.setInt(3,m.getNumero_os());
             stmt.setString(4,cliente);
             stmt.setString(5,m.getDt_inicio());            
-            stmt.setString(6,m.getDt_fim());                                    
+            stmt.setString(6,m.getHora());                                    
             stmt.setString(7,m.getProdutos());                                    
             stmt.executeUpdate();
             //JOptionPane.showMessageDialog(null,"Cadastro realizado !");

@@ -1,6 +1,7 @@
 package view;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Produto;
 import model.dao.EstoqueProdutoDAO;
@@ -69,7 +70,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Descrição", "Valor"
+                "ID", "Descrição", "Valor", "Quantidade"
             }
         ));
         jScrollPane1.setViewportView(table_prod);
@@ -136,6 +137,9 @@ public class PesquisarProduto extends javax.swing.JFrame {
         String nome = edt_nome.getText();
         EstoqueProdutoDAO pdao = new EstoqueProdutoDAO();
         List<Produto> list_prod = pdao.readForDesc(nome);
+        if(list_prod.size()== 0){
+            JOptionPane.showMessageDialog(null,"Produto não encontrado");            
+        }
         DefaultTableModel modelo = (DefaultTableModel) table_prod.getModel();        
         modelo.setNumRows(0);
         
@@ -143,7 +147,8 @@ public class PesquisarProduto extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getDescricao(),
-                p.getValor()
+                p.getValor(),
+                p.getQuantidade()
             });
         }
     }//GEN-LAST:event_btn_pesqActionPerformed
