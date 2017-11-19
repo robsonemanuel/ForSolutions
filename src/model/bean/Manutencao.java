@@ -8,18 +8,18 @@ public class Manutencao {
     private String nmTecnico;
     private int numero_os;
     private String dt_inicio;
-    private String dt_fim;
+    private String hora;
     private String produtos;
 
     public Manutencao() {
     }   
 
-    public Manutencao(String descricao, String nmTecnico, int numero_os, String dt_inicio, String dt_fim, String produtos) {
+    public Manutencao(String descricao, String nmTecnico, int numero_os, String dt_inicio, String hora, String produtos) {
         this.descricao = descricao;
         this.nmTecnico = nmTecnico;
         this.numero_os = numero_os;
         this.dt_inicio = dt_inicio;
-        this.dt_fim = dt_fim;
+        this.hora = hora;
         this.produtos = produtos;
     }
 
@@ -55,12 +55,12 @@ public class Manutencao {
         this.dt_inicio = dt_inicio;
     }
 
-    public String getDt_fim() {
-        return dt_fim;
+    public String getHora() {
+        return hora;
     }
 
-    public void setDt_fim(String dt_fim) {
-        this.dt_fim = dt_fim;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public String getProdutos() {

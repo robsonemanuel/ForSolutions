@@ -303,24 +303,20 @@ public class CadFuncionarioDAO {
         return cargo;
     }
         
-         public String  selectDpto(String cpf){
+    public String  selectDpto(String cpf){
        Connection con = ConnectionFactory.getConnection();
        PreparedStatement stmt = null;
        ResultSet rs = null;
         String dpt = "";
     
         try {
-            stmt = con.prepareStatement("SELECT d.descricao as 'descricao' FROM funcionario as f INNER JOIN departamento as d ON f.idcargo = d.iddepartamento WHERE f.cpf_funcionario=?");
+            stmt = con.prepareStatement("SELECT d.descricao as 'descricao' FROM funcionario as f INNER JOIN departamento as d ON f.iddepartamento = d.iddepartamento WHERE f.cpf_funcionario=?");
             stmt.setString(1,cpf);
             rs = stmt.executeQuery();
             
-            while(rs.next()){
-                                
+            while(rs.next()){                                
                 dpt = ((rs.getString("descricao")));                                               
-                
-                JOptionPane.showMessageDialog(null,"Selete de departamento com sucesso !");
-                                                        
-            }
+             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados de id login ->"+ex);
         }finally{
@@ -329,6 +325,31 @@ public class CadFuncionarioDAO {
         
         return dpt;
     }
+    public String  selectCargoDescricao(String cpf){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+        String crg = "";
+    
+        try {
+            stmt = con.prepareStatement("SELECT c.nome_cargo as 'descricao' FROM funcionario as f INNER JOIN cargo as c ON f.idcargo = c.idcargo WHERE f.cpf_funcionario=?");
+            stmt.setString(1,cpf);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                                
+                crg = ((rs.getString("descricao")));                                                      
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados de id login ->"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return crg;
+    }
+    
+
          
           public String buscaSenhaLogin(int id){
        Connection con = ConnectionFactory.getConnection();

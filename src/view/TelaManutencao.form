@@ -78,7 +78,7 @@
                                   <Component id="jScrollPane2" min="-2" pref="424" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="181" max="32767" attributes="0"/>
+                          <EmptySpace pref="176" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -100,12 +100,11 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jScrollPane3" pref="579" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="584" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="btn_pesquisar" min="-2" pref="107" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="btn_finalizar" min="-2" pref="104" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_fechar" min="-2" pref="106" max="-2" attributes="0"/>
@@ -124,13 +123,9 @@
                       <Group type="102" attributes="0">
                           <Component id="edt_dt_inicio" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="edt_dt_fim" min="-2" pref="80" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="edt_hora" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -176,9 +171,9 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="edt_dt_inicio" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Component id="edt_dt_fim" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="edt_hora" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel8" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
@@ -215,7 +210,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_fechar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="btn_finalizar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="btn_pesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
@@ -374,7 +368,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Inicio :"/>
+            <Property name="text" type="java.lang.String" value="Data: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -385,7 +379,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fim:"/>
+            <Property name="text" type="java.lang.String" value="Horas Gastas :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="edt_dt_inicio">
@@ -394,10 +388,10 @@
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {     ftmData = new MaskFormatter(&quot;##/##/####&quot;); } catch (ParseException e) {     e.printStackTrace(); }"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="edt_dt_fim">
+        <Component class="javax.swing.JFormattedTextField" name="edt_hora">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="this.edt_dt_fim = new JFormattedTextField(ftmData);"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {     ftmData = new MaskFormatter(&quot;##/##/####&quot;); } catch (ParseException e) {     e.printStackTrace(); }"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="this.edt_hora = new JFormattedTextField(ftmhr);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {     ftmhr = new MaskFormatter(&quot;##:##&quot;); } catch (ParseException e) {     e.printStackTrace(); }"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -435,11 +429,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pe&#xe7;as selecionadas:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_pesquisar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane5">

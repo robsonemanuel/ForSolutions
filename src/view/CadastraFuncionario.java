@@ -379,7 +379,8 @@ public class CadastraFuncionario extends javax.swing.JFrame {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
-
+    
+    private static String cpfA = "";
     public boolean verificaCampo(){
         boolean checkGeral = false;
         boolean check = false;
@@ -452,6 +453,18 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         
         return checkGeral;
     }
+    
+    private void limpaCampo(){
+        edt_nome.setText("");
+        edt_cpf.setText("");
+        edt_tel.setText("");
+        edt_email.setText("");
+        edt_logra.setText("");
+        edt_num.setText("");
+        edt_dtad.setText("");
+        edt_senha1.setText("");
+        edt_senha2.setText("");
+    }
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         if(verificaCampo()){
             CadFuncionarioDAO cfdao = new CadFuncionarioDAO();
@@ -466,15 +479,7 @@ public class CadastraFuncionario extends javax.swing.JFrame {
             Funcionario f = new Funcionario (salario,dept_selecionado,cargo_selecionado,edt_dtad.getText(),id_log,edt_cpf.getText(),edt_email.getText(),
             edt_nome.getText(),edt_logra.getText(),num,edt_tel.getText());       
             if(cfdao.create(f, id_cargo, id_depto)){
-                edt_nome.setText("");
-                edt_cpf.setText("");
-                edt_tel.setText("");
-                edt_email.setText("");
-                edt_logra.setText("");
-                edt_num.setText("");
-                edt_dtad.setText("");
-                edt_senha1.setText("");
-                edt_senha2.setText("");
+                limpaCampo();
             }
             
         }else{
@@ -487,29 +492,28 @@ public class CadastraFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_edt_cpfActionPerformed
 
     private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        String cpf = edt_cpf.getText(); 
         if(verificaCampo()){
-            CadFuncionarioDAO cfdao = new CadFuncionarioDAO();        
-            String cargo_selecionado = (String) comboCargo.getSelectedItem();
-            String dept_selecionado = (String) comboDepartamento.getSelectedItem();       
-            int id_cargo = cfdao.buscaCodCargo(cargo_selecionado);
-            int id_depto = cfdao.buscaCodDepartamento(dept_selecionado); 
-            int num = Integer.parseInt(edt_num.getText());
-            float salario = cfdao.buscaSalario(cargo_selecionado);
-            int id_log   = cfdao.buscaCodLogin(edt_nome.getText());
-            Funcionario f = new Funcionario (salario,dept_selecionado,cargo_selecionado,edt_dtad.getText(),id_log,edt_cpf.getText(),edt_email.getText(),
-            edt_nome.getText(),edt_logra.getText(),num,edt_tel.getText());                     
-            cfdao.update(f, id_cargo, id_depto);
-            LoginDAO ldao = new LoginDAO();        
-            ldao.update(f.getLogin(), edt_senha1.getText());
-                edt_nome.setText("");
-                edt_cpf.setText("");
-                edt_tel.setText("");
-                edt_email.setText("");
-                edt_logra.setText("");
-                edt_num.setText("");
-                edt_dtad.setText("");
-                edt_senha1.setText("");
-                edt_senha2.setText("");
+            if(cpfA.equals(cpf)){
+                CadFuncionarioDAO cfdao = new CadFuncionarioDAO();        
+                String cargo_selecionado = (String) comboCargo.getSelectedItem();
+                String dept_selecionado = (String) comboDepartamento.getSelectedItem();       
+                int id_cargo = cfdao.buscaCodCargo(cargo_selecionado);
+                int id_depto = cfdao.buscaCodDepartamento(dept_selecionado); 
+                int num = Integer.parseInt(edt_num.getText());
+                float salario = cfdao.buscaSalario(cargo_selecionado);
+                int id_log   = cfdao.buscaCodLogin(edt_nome.getText());
+                Funcionario f = new Funcionario (salario,dept_selecionado,cargo_selecionado,edt_dtad.getText(),id_log,edt_cpf.getText(),edt_email.getText(),
+                edt_nome.getText(),edt_logra.getText(),num,edt_tel.getText());                     
+                cfdao.update(f, id_cargo, id_depto);
+                LoginDAO ldao = new LoginDAO();        
+                ldao.update(f.getLogin(), edt_senha1.getText());
+                    limpaCampo();
+            }else{
+                JOptionPane.showMessageDialog(null,"Não é permitido alterar o CPF");
+                limpaCampo();
+                cpfA = "0";
+            }
         }else{
             
         }
@@ -525,24 +529,19 @@ public class CadastraFuncionario extends javax.swing.JFrame {
         Funcionario fun = cfdao.select(cpf); 
         cfdao.delete(fun);
         ldao.delete(fun.getLogin());
-        edt_nome.setText("");
-        edt_cpf.setText("");
-        edt_tel.setText("");
-        edt_email.setText("");
-        edt_logra.setText("");
-        edt_num.setText("");
-        edt_dtad.setText("");
-        edt_senha1.setText("");
-        edt_senha2.setText("");
+        limpaCampo();
     }//GEN-LAST:event_btn_excluirActionPerformed
 
     private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
         CadFuncionarioDAO cfdao = new CadFuncionarioDAO();         
-        String cpf = edt_cpf.getText();
-        Funcionario fun = cfdao.select(cpf); 
-        String senha = cfdao.buscaSenhaLogin(fun.getLogin());
-        comboCargo.addItem(fun.getCargo());            
-        comboDepartamento.addItem(fun.getDepartamento());        
+        String cpf = edt_cpf.getText();     
+        cpfA = cpf;
+        Funcionario fun = cfdao.select(cpf);
+        String departamento = cfdao.selectDpto(cpf);
+        String cargo = cfdao.selectCargoDescricao(cpf);
+        String senha = cfdao.buscaSenhaLogin(fun.getLogin());                   
+        comboCargo.getModel().setSelectedItem(cargo);
+        comboDepartamento.getModel().setSelectedItem(departamento);              
         edt_nome.setText(fun.getNome());
         edt_email.setText(fun.getEmail());
         edt_logra.setText(fun.getLogradouro());        

@@ -18,11 +18,16 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+
 import javax.swing.table.DefaultTableModel;
-import model.bean.Orcamento;
+import static javax.swing.text.html.HTML.Tag.HEAD;
 import model.bean.Ordem_Servico;
 import model.bean.Produto;
+
 import model.dao.EstoqueProdutoDAO;
+
+
 import model.dao.OrdemServicoDAO;
 
 /*
@@ -73,7 +78,10 @@ public class OrdemServico extends javax.swing.JFrame {
         jtPeca = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+
         jDesktopPane1 = new javax.swing.JDesktopPane();
+
+
         btnGravar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -85,6 +93,7 @@ public class OrdemServico extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel4.setText("Componentes :");
         jDesktopPane3.add(jLabel4);
         jLabel4.setBounds(38, 188, 103, 35);
@@ -96,9 +105,17 @@ public class OrdemServico extends javax.swing.JFrame {
         jDesktopPane3.add(jScrollPane1);
         jScrollPane1.setBounds(38, 338, 555, 100);
 
+        jLabel4.setText("Peças Utilizadas:");
+
+        txtDescDef.setColumns(20);
+        txtDescDef.setRows(5);
+        jScrollPane1.setViewportView(txtDescDef);
+
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Nome Clinte:");
+
         jDesktopPane3.add(jLabel6);
         jLabel6.setBounds(38, 109, 78, 14);
         jDesktopPane3.add(txtNomeCli);
@@ -156,19 +173,67 @@ public class OrdemServico extends javax.swing.JFrame {
         jScrollPane2.setBounds(354, 72, 239, 196);
 
         btnAdd.setText("Adicionar Componente");
+
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Descrição Do Produto:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Descrição do Defeito: ");
+
+        cbPecas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Peça" }));
+        cbPecas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbPecasItemStateChanged(evt);
+            }
+        });
+        cbPecas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbPecasMouseClicked(evt);
+            }
+        });
+        cbPecas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPecasActionPerformed(evt);
+            }
+        });
+        cbPecas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbPecasKeyPressed(evt);
+            }
+        });
+
+        jtPeca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descrição", "QTDE"
+            }
+        ));
+        jScrollPane2.setViewportView(jtPeca);
+
+        btnAdd.setText("Adicionar Peça");
+
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
+
         jDesktopPane3.add(btnAdd);
         btnAdd.setBounds(195, 229, 141, 31);
+
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Ordem de Serviço");
+
         jDesktopPane3.add(jLabel10);
         jLabel10.setBounds(220, 11, 166, 28);
+
 
         btnGravar.setText("Gravar");
         btnGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +248,7 @@ public class OrdemServico extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
 
         jDesktopPane1.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -205,7 +271,93 @@ public class OrdemServico extends javax.swing.JFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap()));
+
+        jDesktopPane3.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(txtNomeCli, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(txtDescProd, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(cbPecas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(btnAdd, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane3Layout = new javax.swing.GroupLayout(jDesktopPane3);
+        jDesktopPane3.setLayout(jDesktopPane3Layout);
+        jDesktopPane3Layout.setHorizontalGroup(
+            jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbPecas, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane3Layout.createSequentialGroup()
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtDescProd))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane3Layout.createSequentialGroup()
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jDesktopPane3Layout.setVerticalGroup(
+            jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbPecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+
         );
 
         jDesktopPane3.add(jDesktopPane1);
@@ -215,7 +367,11 @@ public class OrdemServico extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
             .addComponent(jDesktopPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+
+            .addComponent(jDesktopPane3)
+
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,6 +399,7 @@ public class OrdemServico extends javax.swing.JFrame {
     private void cbPecasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPecasKeyPressed
 
     }//GEN-LAST:event_cbPecasKeyPressed
+
 
     public void geraPdf() {
         OrdemServicoDAO ordDao = new OrdemServicoDAO();
@@ -324,6 +481,7 @@ public class OrdemServico extends javax.swing.JFrame {
             }
         }
     }
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         Produto produto = (Produto) cbPecas.getSelectedItem();
         DefaultTableModel dtmProdutos = (DefaultTableModel) jtPeca.getModel();
@@ -333,6 +491,7 @@ public class OrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+
 
         Ordem_Servico os = new Ordem_Servico();
         OrdemServicoDAO osDao = new OrdemServicoDAO();
@@ -363,8 +522,22 @@ public class OrdemServico extends javax.swing.JFrame {
         txtDescDef.setText("");
         txtDescProd.setText("");
     }
+                                      
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
+          this.dispose();
+
+       
+        Ordem_Servico os = new Ordem_Servico();
+        OrdemServicoDAO osDao = new OrdemServicoDAO();
+        
+        os.setNome(txtNomeCli.getText());
+        os.setDescri_prod(txtDescProd.getText());
+        os.setDescri_def(txtDescDef.getText());
+        
+        osDao.save(os);     
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
