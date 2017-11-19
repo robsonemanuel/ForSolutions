@@ -159,4 +159,24 @@ public class EstoqueProdutoDAO {
         
         return produtos;
     }
+     
+      public void selectCod(int cod){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       
+        try {
+                stmt = con.prepareStatement("UPDATE produto set quantidade = quantidade - 1 where  idproduto = ?");
+            stmt.setInt(1,cod);            
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel realizar baixa no estoque -> "+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        
+    }
 }

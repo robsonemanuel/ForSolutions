@@ -105,7 +105,6 @@ public class TelaManutencao extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txt_pecas = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
-        btn_pesquisar = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         table_produto = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
@@ -191,8 +190,6 @@ public class TelaManutencao extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Peças selecionadas:");
 
-        btn_pesquisar.setText("Pesquisar");
-
         table_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -230,7 +227,6 @@ public class TelaManutencao extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(btn_pesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(edt_nmCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -255,7 +251,7 @@ public class TelaManutencao extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel5)
@@ -271,11 +267,10 @@ public class TelaManutencao extends javax.swing.JFrame {
                         .addGap(67, 67, 67)))
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(btn_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,8 +352,7 @@ public class TelaManutencao extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42))))
         );
 
@@ -380,7 +374,7 @@ public class TelaManutencao extends javax.swing.JFrame {
     private void btn_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_fecharActionPerformed
-    private List<Integer> IdPecas = new ArrayList<>();//ARRAY PARA ARMAZENAR OS IDs DAS PECAS SELECIONADAS
+    private static List<Integer> IdPecas = new ArrayList<>();//ARRAY PARA ARMAZENAR OS IDs DAS PECAS SELECIONADAS
     private void table_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_produtoMouseClicked
         if(txt_pecas.getText().length() == 0){  
             if(table_produto.getSelectedRow() != -1F){            
@@ -448,6 +442,15 @@ public class TelaManutencao extends javax.swing.JFrame {
         txt_pecas.setText("");
     }
     
+    public void retiraEstoque(){
+        EstoqueProdutoDAO edao = new EstoqueProdutoDAO();
+        int tam = IdPecas.size();
+        for(int i=0;i<tam;i++){
+            int f = IdPecas.get(i);
+           edao.selectCod(f);
+        }
+    }
+    
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
         ManutencaoDAO mdao = new ManutencaoDAO();
         Manutencao m = new Manutencao();  
@@ -464,7 +467,7 @@ public class TelaManutencao extends javax.swing.JFrame {
                 int f = IdPecas.get(i);
                 pecas += f+", ";
             }
-            System.out.println(pecas);
+            //System.out.println(pecas);
             int numOs = Integer.parseInt(edt_nos.getText());
             m.setNumero_os(numOs);
             m.setNmTecnico(edt_nmTecnico.getText());
@@ -474,9 +477,11 @@ public class TelaManutencao extends javax.swing.JFrame {
             m.setProdutos(pecas);
             if(mdao.insert(m, edt_nmCliente.getText())){
                 if(osdao.updateS(id)){
+                    retiraEstoque();
                     JOptionPane.showMessageDialog(null,"O.S. Finalizada com Sucesso !");                
                     limpaCampo();
                     readJtable();
+                    IdPecas = new ArrayList<>();
                 }
             }else{
                 JOptionPane.showMessageDialog(null,"ERRO AO FINALIZAR, TENTE NOVAMENTE");
@@ -525,7 +530,6 @@ public class TelaManutencao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_fechar;
     private javax.swing.JButton btn_finalizar;
-    private javax.swing.JButton btn_pesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFormattedTextField edt_dt_inicio;
     private javax.swing.JFormattedTextField edt_hora;
