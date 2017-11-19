@@ -5,6 +5,13 @@
  */
 package view;
 
+import connection.ConnectionFactory;
+import java.io.File;
+import java.sql.Connection;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import model.bean.MySQLBackup;
+
 public class Principal extends javax.swing.JFrame {
 
     int nivel = Login.level;
@@ -86,6 +93,8 @@ public class Principal extends javax.swing.JFrame {
         menu_estoque = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menu_bk = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU PRINCIPAL");
@@ -245,6 +254,18 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu2.setText("Opções");
+
+        menu_bk.setText("Backup");
+        menu_bk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_bkActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_bk);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,6 +353,10 @@ public class Principal extends javax.swing.JFrame {
         cli.setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
+    private void menu_bkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bkActionPerformed
+          MySQLBackup bk =new  MySQLBackup();  
+    }//GEN-LAST:event_menu_bkActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -371,6 +396,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -384,6 +410,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem menu_bk;
     private javax.swing.JMenuItem menu_cad_cli;
     private javax.swing.JMenu menu_contas;
     private javax.swing.JMenuItem menu_estoque;
