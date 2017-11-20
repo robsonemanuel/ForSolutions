@@ -167,7 +167,7 @@ public class EstoqueProdutoDAO {
        
        
         try {
-                stmt = con.prepareStatement("UPDATE produto set quantidade = quantidade - 1 where  idproduto = ?");
+            stmt = con.prepareStatement("UPDATE produto set quantidade = quantidade - 1 where  idproduto = ?");
             stmt.setInt(1,cod);            
             stmt.executeUpdate();
             
@@ -176,6 +176,7 @@ public class EstoqueProdutoDAO {
         }finally{
            ConnectionFactory.closeConnection(con, stmt, rs);
         }
+
       }
         
      public float SelectValor(int cod){
@@ -201,5 +202,9 @@ public class EstoqueProdutoDAO {
         }
         
         return val;
+
+        
+        
+
     }
 }
