@@ -8,10 +8,8 @@ public class Ordem_Servico {
   private Date data;
   private String descri_def;
   private String nome;
-
   private int id;
   private String finalizada;
-
 
     public Ordem_Servico() {
     }

@@ -167,6 +167,7 @@ public class EstoqueProdutoDAO {
        
        
         try {
+
             stmt = con.prepareStatement("UPDATE produto set quantidade = quantidade - 1 where  idproduto = ?");
             stmt.setInt(1,cod);            
             stmt.executeUpdate();
@@ -202,7 +203,6 @@ public class EstoqueProdutoDAO {
         }
         
         return val;
-
         
         
 

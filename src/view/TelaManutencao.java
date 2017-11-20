@@ -475,9 +475,11 @@ public class TelaManutencao extends javax.swing.JFrame {
             m.setDt_inicio(edt_dt_inicio.getText());
             m.setHora(edt_hora.getText());
 
+
             if(pecas.equals("")){
                pecas = "0";
             }
+
 
 
             m.setProdutos(pecas);

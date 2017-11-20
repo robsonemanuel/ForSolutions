@@ -40,6 +40,36 @@ public class LoginDAO {
         return check;
 
     }
+    public int verificaNivel(String login, String senha) {
+
+        Connection con;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int num_dpt=0;
+        
+
+        try {
+
+            stmt = con.prepareStatement("SELECT f.iddepartamento as dpt FROM login as l INNER JOIN funcionario as f on l.idlogin = f.idlogin WHERE usuario = ? and senha = ?");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {                
+                num_dpt = rs.getInt("dpt");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return num_dpt;
+
+    }
     
     public boolean VerificaNewSenha(String login, String senha) {
 
