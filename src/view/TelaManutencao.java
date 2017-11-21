@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
+import model.bean.Cliente;
+import model.bean.JavaMailApp;
 import model.bean.Manutencao;
 import model.bean.Ordem_Servico;
 import model.bean.Produto;
@@ -394,12 +396,13 @@ public class TelaManutencao extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_table_produtoMouseClicked
-
+    
     private void table_osMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_osMouseClicked
         if(table_os.getSelectedRow() != -1F){            
                  int x =(((Integer)(table_os.getValueAt(table_os.getSelectedRow(),0))));    
                  edt_nmCliente.setText((String)(table_os.getValueAt(table_os.getSelectedRow(),3)));
                  edt_nos.setText(x+"");
+                 
             }
     }//GEN-LAST:event_table_osMouseClicked
     
@@ -442,6 +445,8 @@ public class TelaManutencao extends javax.swing.JFrame {
         txt_pecas.setText("");
     }
     
+   
+    
     public void retiraEstoque(){
         EstoqueProdutoDAO edao = new EstoqueProdutoDAO();
         int tam = IdPecas.size();
@@ -449,6 +454,20 @@ public class TelaManutencao extends javax.swing.JFrame {
             int f = IdPecas.get(i);
            edao.selectCod(f);
         }
+    }
+    
+    public void enviarEmailAtendente(){
+        int numOS = Integer.parseInt(edt_nos.getText());
+        ManutencaoDAO mdao = new ManutencaoDAO();
+        Cliente cliente = mdao.selectCliente(numOS);
+        List<String>emails = mdao.emailAtendente();
+        JavaMailApp sendEmail = new JavaMailApp();
+        int tam = emails.size();        
+        for(int i=0;i<tam;i++){
+            String emailAtendente = emails.get(i);           
+            sendEmail.emailfunc(emailAtendente,cliente.getNome(),cliente.getTelefone(),numOS);            
+        }
+        
     }
     
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
@@ -485,11 +504,13 @@ public class TelaManutencao extends javax.swing.JFrame {
             m.setProdutos(pecas);
             if(mdao.insert(m, edt_nmCliente.getText())){
                 if(osdao.updateS(id)){
-                    retiraEstoque();
-                    JOptionPane.showMessageDialog(null,"O.S. Finalizada com Sucesso !");                
+                    retiraEstoque();    
+                    enviarEmailAtendente();
+                    JOptionPane.showMessageDialog(null,"O.S. Finalizada com Sucesso !");                   
                     limpaCampo();
-                    readJtable();
-                    IdPecas = new ArrayList<>();
+                    readJtable();                    
+                    IdPecas = new ArrayList<>();              
+                    
                 }
             }else{
                 JOptionPane.showMessageDialog(null,"ERRO AO FINALIZAR, TENTE NOVAMENTE");

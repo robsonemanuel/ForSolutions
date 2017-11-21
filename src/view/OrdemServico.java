@@ -417,7 +417,7 @@ public void readJtable(String cpf) {
         if (tabela.getSelectedRow() != -1) {
 
             txtNomeCli.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-           
+            
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
