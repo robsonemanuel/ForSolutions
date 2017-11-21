@@ -641,7 +641,7 @@ public class TelaVendaServico extends javax.swing.JFrame {
           dao.create(v);
           gerarPdf();
           limpaCampos();
-         // readJTable();
+          readJTable();
        }if(soma<totall){
         JOptionPane.showMessageDialog(null,"Valor informado menor que o total!!");
           
