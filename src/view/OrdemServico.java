@@ -409,7 +409,7 @@ public void readJtable(String cpf) {
             txtNomeCli.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
             id_cliente =  (int) tabela.getValueAt(tabela.getSelectedRow(),0);
             
-           JOptionPane.showMessageDialog(null,id_cliente);
+      
             
             
             
