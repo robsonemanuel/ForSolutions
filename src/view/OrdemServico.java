@@ -46,6 +46,7 @@ public class OrdemServico extends javax.swing.JFrame {
     /**
      * Creates new form OrdemServico
      */
+    private static int id;
     public OrdemServico() {
         initComponents();
 
@@ -231,12 +232,6 @@ public class OrdemServico extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(127, 127, 127))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
@@ -276,6 +271,12 @@ public class OrdemServico extends javax.swing.JFrame {
                                 .addGap(98, 98, 98)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(129, 129, 129))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,7 +321,7 @@ public class OrdemServico extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(49, 49, 49)
                         .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -368,16 +369,6 @@ public class OrdemServico extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-
-        Ordem_Servico os = new Ordem_Servico();
-        OrdemServicoDAO osDao = new OrdemServicoDAO();
-
-        os.setNome(txtNomeCli.getText());
-        os.setDescri_prod(txtDescProd.getText());
-        os.setDescri_def(txtDescDef.getText());
-
-        osDao.save(os);
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
@@ -412,12 +403,14 @@ public void readJtable(String cpf) {
         readJtable(txtCpf.getText());
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
+     Cliente c = new Cliente();
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        
         if (tabela.getSelectedRow() != -1) {
-
+            id =  (int) tabela.getValueAt(tabela.getSelectedRow(),0);
             txtNomeCli.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-           
+          
+          
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
