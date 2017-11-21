@@ -367,17 +367,7 @@ public class OrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-
-        Ordem_Servico os = new Ordem_Servico();
-        OrdemServicoDAO osDao = new OrdemServicoDAO();
-
-        os.setNome(txtNomeCli.getText());
-        os.setDescri_prod(txtDescProd.getText());
-        os.setDescri_def(txtDescDef.getText());
-
-        osDao.save(os);
-
+        this.dispose(); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
@@ -389,7 +379,7 @@ public class OrdemServico extends javax.swing.JFrame {
         os.setDescri_prod(txtDescProd.getText());
         os.setDescri_def(txtDescDef.getText());
         validaCampo();
-        osDao.save(os);
+        osDao.save(os,id_cliente);
         geraPdf();
         limpaTabela();
         limpaCampo();
@@ -412,11 +402,16 @@ public void readJtable(String cpf) {
         readJtable(txtCpf.getText());
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    private int id_cliente;
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if (tabela.getSelectedRow() != -1) {
 
             txtNomeCli.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+            id_cliente =  (int) tabela.getValueAt(tabela.getSelectedRow(),0);
+            
+           JOptionPane.showMessageDialog(null,id_cliente);
+            
+            
             
         }
     }//GEN-LAST:event_tabelaMouseClicked

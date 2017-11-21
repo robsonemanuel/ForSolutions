@@ -32,7 +32,7 @@ public class OrdemServicoDAO {
         con = ConnectionFactory.getConnection();
     }
     
-    public boolean save (Ordem_Servico ordem){
+    public boolean save (Ordem_Servico ordem,int id){
         String sql="INSERT INTO ordem_servico (descri_prod, descri_def,idcliente)VALUES(?,?,?)";
         PreparedStatement stmt = null;
         try {
@@ -40,7 +40,7 @@ public class OrdemServicoDAO {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, ordem.getDescri_prod());
             stmt.setString(2, ordem.getDescri_def());
-            stmt.setString(3, ordem.getNome());
+            stmt.setInt(3,id);
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Salvo com sucesso ! ");
