@@ -33,7 +33,7 @@ public class OrdemServicoDAO {
     }
     
     public boolean save (Ordem_Servico ordem){
-        String sql="INSERT INTO ordem_servico (descri_prod, descri_def,nome_cliente)VALUES(?,?,?)";
+        String sql="INSERT INTO ordem_servico (descri_prod, descri_def,idcliente)VALUES(?,?,?)";
         PreparedStatement stmt = null;
         try {
             

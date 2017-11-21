@@ -409,7 +409,7 @@ public class cadastroCliente extends javax.swing.JFrame {
         ClienteDAO dao = new ClienteDAO();
 
         String nCasa = "";
-        JOptionPane.showMessageDialog(null, "n = " + txtNumeroCasa.getText());
+        
         if (txtNumeroCasa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Nº da casa invalido");
         } else if (txtNome.getText().isEmpty()) {

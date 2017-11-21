@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.bean.EstoqueProduto;
 import model.bean.Pagamento;
 import model.bean.Produto;
 import model.bean.VendaProduto;
@@ -60,7 +61,7 @@ public class Venda extends javax.swing.JFrame {
           jRadioButton1.setEnabled(false);
           jRadioButton2.setEnabled(false);
           jRadioButton3.setEnabled(false);
-          txtpreco.setEnabled(false);
+         
         
         
     }
@@ -158,6 +159,7 @@ public class Venda extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -216,6 +218,7 @@ public class Venda extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Total :");
 
+        jTextTotal.setEditable(false);
         jTextTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextTotalActionPerformed(evt);
@@ -226,6 +229,7 @@ public class Venda extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Preço:");
 
+        txtpreco.setEditable(false);
         txtpreco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtprecoActionPerformed(evt);
@@ -320,7 +324,15 @@ public class Venda extends javax.swing.JFrame {
             new String [] {
                 "DESCRICAO", "VALOR UNITARIO", "QTDE", "VALOR TOTAL"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jtVendaProdutos);
 
         buttonGroup1.add(jRadioButton1);
@@ -331,6 +343,13 @@ public class Venda extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("3vx");
+
+        jButton2.setText("Remover Produto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtquantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -355,6 +374,7 @@ public class Venda extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jRadioButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jRadioButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jRadioButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -385,7 +405,8 @@ public class Venda extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel3)
                                         .addGap(41, 41, 41)
                                         .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -453,8 +474,13 @@ public class Venda extends javax.swing.JFrame {
                             .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel7)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel7))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))
                         .addGap(18, 18, 18)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,7 +489,7 @@ public class Venda extends javax.swing.JFrame {
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtDebito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox2)
                     .addComponent(jtCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -473,7 +499,7 @@ public class Venda extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
@@ -650,6 +676,8 @@ public class Venda extends javax.swing.JFrame {
      if(soma==total){
        Pagamento p = new Pagamento();
        VendaDAO dao = new VendaDAO();
+       Produto produto = (Produto) cbprodutos.getSelectedItem();
+       EstoqueProdutoDAO edao = new EstoqueProdutoDAO();
        p.setValor(Float.parseFloat(jTextTotal.getText()));
        p.setForma_pagamento(stringFormaPagamento);
        p.setVezes(vezes);
@@ -666,6 +694,9 @@ public class Venda extends javax.swing.JFrame {
            int resul;
            resul = dao.readUltimoId();
            v.setId_pagamento(resul);
+         
+     
+           edao.selectCodQtde(quantidade,produto.getId());
            dao.createVendaProduto(v);
        }
        
@@ -710,6 +741,24 @@ public class Venda extends javax.swing.JFrame {
     private void cbprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprodutosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbprodutosActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      if(jtVendaProdutos.getSelectedRow() == -1){
+       JOptionPane.showMessageDialog(null, "Escolha um Produto para excluir");
+      }else{
+           DefaultTableModel dtmProdutos = ( DefaultTableModel) jtVendaProdutos.getModel();
+           dtmProdutos.removeRow(jtVendaProdutos.getSelectedRow());
+           
+       
+        
+        double count=0;
+        for (int i=0; i<=dtmProdutos.getRowCount()-1;i++) {
+        count+=Double.parseDouble(dtmProdutos.getValueAt(i, 3).toString());
+       }
+       
+        jTextTotal.setText(""+count);
+      }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     float ParseFloat(String strNumber) {
    if (strNumber != null && strNumber.length() > 0) {
@@ -763,6 +812,7 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<Object> cbprodutos;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;

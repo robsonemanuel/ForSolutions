@@ -52,9 +52,10 @@ public class VendaServicoDAO {
        
         List<VendaServico> vendaservicos = new ArrayList<>();
         try {
-            stmt = con.prepareStatement("SELECT id_ordem_servico, nome_cliente, pecas, horas,descricao from ordem_servico \n" +
+            stmt = con.prepareStatement("SELECT distinct id_ordem_servico, c.nome_cliente, pecas, horas,descricao from ordem_servico\n" +
             "inner join manutencao on ordem_servico.id_ordem_servico = manutencao.num_os\n" +
-            "where ordem_servico.id_ordem_servico not in(select id_os from vendaservico)");
+            "INNER JOIN cliente as c ON ordem_servico.idcliente = c.id_cliente\n" +
+            "where ordem_servico.id_ordem_servico not in(select id_os from vendaservico) order by id_ordem_servico");
             rs = stmt.executeQuery();
             
             while(rs.next()){

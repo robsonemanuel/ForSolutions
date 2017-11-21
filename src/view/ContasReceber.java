@@ -31,7 +31,7 @@ public class ContasReceber extends javax.swing.JFrame {
         lblDespesa.setText("Despesa do Mes: R$" + resulDespesa);
         
         ContasAReceberDAO daoLucro = new ContasAReceberDAO();
-        float resulLucro = daoLucro.somaLucro();
+        float resulLucro = daoLucro.somaLucro() + daoLucro.somaLucroServico();
         lblLucro.setText("Lucro do Mes: R$" + resulLucro);
         
         float resul = resulLucro - resulDespesa;
@@ -190,7 +190,7 @@ public class ContasReceber extends javax.swing.JFrame {
         lblDespesa.setText("Despesa do Mes: R$" + resulDespesa);
         
         ContasAReceberDAO daoLucro = new ContasAReceberDAO();
-        float resulLucro = daoLucro.somaLucroSelecionado(contapagar.getData_venc(), (String) mes);
+        float resulLucro = daoLucro.somaLucroSelecionado(contapagar.getData_venc(), (String) mes) + daoLucro.somaLucroSelecionadoServico(contapagar.getData_venc(), (String) mes);
         lblLucro.setText("Lucro do Mes: R$" + resulLucro);
         
         float resul = resulLucro - resulDespesa;

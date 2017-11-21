@@ -5,13 +5,30 @@
  */
 package view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.bean.Produto;
 import model.bean.VendaServico;
 import model.dao.EstoqueProdutoDAO;
 import model.dao.VendaServicoDAO;
@@ -29,6 +46,13 @@ public class TelaVendaServico extends javax.swing.JFrame {
     
     public TelaVendaServico() {
         initComponents();
+        
+         jtDinheiro.setEnabled(false);
+          jtDebito.setEnabled(false);
+          jtCredito.setEnabled(false);
+          jRadioButton1.setEnabled(false);
+          jRadioButton2.setEnabled(false);
+          jRadioButton3.setEnabled(false);
        
         DefaultTableModel modelo = (DefaultTableModel) jVendaServicos.getModel();
         jVendaServicos.setRowSorter(new TableRowSorter(modelo));
@@ -75,6 +99,17 @@ public class TelaVendaServico extends javax.swing.JFrame {
         total = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtos = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jtDinheiro = new javax.swing.JTextField();
+        jtDebito = new javax.swing.JTextField();
+        jtCredito = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,6 +192,54 @@ public class TelaVendaServico extends javax.swing.JFrame {
 
         txtos.setEditable(false);
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Forma de pagamento:");
+
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("Dinheiro");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+
+        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox3.setText("Cartão débito");
+        jCheckBox3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox3ItemStateChanged(evt);
+            }
+        });
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox2.setText("Cartão crédito");
+        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox2ItemStateChanged(evt);
+            }
+        });
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Parcelas:");
+
+        jRadioButton1.setText("1vx");
+
+        jRadioButton2.setText("2vx");
+
+        jRadioButton3.setText("3vx");
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -168,6 +251,17 @@ public class TelaVendaServico extends javax.swing.JFrame {
         jDesktopPane1.setLayer(total, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtDinheiro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtDebito, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtCredito, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jRadioButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jRadioButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jRadioButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -177,39 +271,76 @@ public class TelaVendaServico extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(143, 143, 143))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(vlprodutos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(vlmaodeobra, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(259, 259, 259))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(21, Short.MAX_VALUE))))
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(vlprodutos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(vlmaodeobra, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7)
+                            .addComponent(jCheckBox1))
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(259, 259, 259))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(21, Short.MAX_VALUE))))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox3)
+                                .addGap(22, 22, 22)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtDinheiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                                    .addComponent(jtDebito, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addContainerGap())))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1)))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,19 +353,29 @@ public class TelaVendaServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(vlprodutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox3)
+                    .addComponent(jtDebito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jtCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addComponent(jButton1))
-                .addContainerGap(189, Short.MAX_VALUE))
+                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButton3)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,6 +450,136 @@ public class TelaVendaServico extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_jVendaServicosMouseClicked
 
+     public void gerarPdf(){
+        Document documento = new Document();
+        Date dataHoraAtual = new Date();
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+        txtos.setText(jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 0).toString());
+        String cliente =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 1).toString();
+        String ids =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 2).toString();
+        String horas =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 3).toString();
+        String descServico =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 4).toString();
+         
+        JOptionPane.showMessageDialog(null, "PDF gerado com sucesso ! ");
+        try{
+            if(ids.equals("0")){
+             PdfWriter.getInstance(documento, new FileOutputStream("vendaservico.pdf"));
+            documento.open(); // abrindo o documento
+            //criando as fontes e personalizando os textos
+            Font fontCabecalho = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD,
+                    BaseColor.BLUE);
+            Font dadosCliente = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD,
+                    BaseColor.BLACK);
+            Font dadosLogo = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD,
+                    BaseColor.BLUE);
+            Paragraph logo = new Paragraph("For Solutions");
+            logo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo);
+            Paragraph cidade = new Paragraph("São Paulo,SP");
+            documento.add(cidade);
+            Paragraph estabelecimento = new Paragraph("Via Estabelecimento");
+            documento.add(estabelecimento);
+            Paragraph docData = new Paragraph(data + " " + hora);
+            documento.add(docData);
+            Paragraph logo2 = new Paragraph("Venda Autorizada");
+            logo2.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo2);
+            
+            Paragraph logo4 = new Paragraph("Serviço Realizado");
+            logo4.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo4);
+            Paragraph nOS = new Paragraph("Numero da O.S: "+txtos.getText());
+            documento.add(nOS);
+            Paragraph nome = new Paragraph("Nome do Cliente: "+cliente);
+            documento.add(nome);
+            Paragraph desc = new Paragraph("Descrição do que foi Realizado: "+descServico);
+            documento.add(desc);
+            Paragraph horasTrab = new Paragraph("Horas Trabalhada: "+horas);
+            documento.add(horasTrab);
+            Paragraph valorHoras = new Paragraph("Valor Horas Trabalhadas: "+vlmaodeobra.getText());
+            documento.add(valorHoras);
+            Paragraph div = new Paragraph("_______________________________________________________________________");
+            documento.add(div);
+            Paragraph valor = new Paragraph("Valor Total: R$" + total.getText());
+            documento.add(valor);
+            
+            }else{
+            PdfWriter.getInstance(documento, new FileOutputStream("vendaservico.pdf"));
+            documento.open(); // abrindo o documento
+            //criando as fontes e personalizando os textos
+            Font fontCabecalho = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD,
+                    BaseColor.BLUE);
+            Font dadosCliente = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD,
+                    BaseColor.BLACK);
+            Font dadosLogo = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD,
+                    BaseColor.BLUE);
+            Paragraph logo = new Paragraph("For Solutions");
+            logo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo);
+            Paragraph cidade = new Paragraph("São Paulo,SP");
+            documento.add(cidade);
+            Paragraph estabelecimento = new Paragraph("Via Estabelecimento");
+            documento.add(estabelecimento);
+            Paragraph docData = new Paragraph(data + " " + hora);
+            documento.add(docData);
+            Paragraph logo2 = new Paragraph("Venda Autorizada");
+            logo2.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo2);
+            
+            Paragraph logo4 = new Paragraph("Serviço Realizado");
+            logo4.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo4);
+            Paragraph nOS = new Paragraph("Numero da O.S: "+txtos.getText());
+            documento.add(nOS);
+            Paragraph nome = new Paragraph("Nome do Cliente: "+cliente);
+            documento.add(nome);
+            Paragraph desc = new Paragraph("Descrição do que foi Realizado: "+descServico);
+            documento.add(desc);
+            Paragraph horasTrab = new Paragraph("Horas Trabalhada: "+horas);
+            documento.add(horasTrab);
+            Paragraph valorHoras = new Paragraph("Valor Horas Trabalhadas: "+vlmaodeobra.getText());
+            documento.add(valorHoras);
+            
+            Paragraph logo3 = new Paragraph("Produtos Utilizados");
+            logo3.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo3);
+            float totalvalores =0;
+            ids = ids.substring (0, ids.length() - 2);
+            String[] textoSeparado = ids.split(",");
+            int tam = textoSeparado.length;
+            float[] valorPecas = new float[tam];
+            EstoqueProdutoDAO edao = new EstoqueProdutoDAO();
+             
+            for(int i=0; i<tam; i++){
+                
+                 int cod = Integer.parseInt(textoSeparado[i].trim());
+                 for(Produto v:edao.readWhereId(cod)){
+                    
+                     Paragraph produtos = new Paragraph("Código do Produto: "+ v.getId() + "\n" + "Descrição do Produto: " + v.getDescricao() + "\n" + "Valor: R$" + v.getValor() + "\n");
+                     documento.add(produtos);
+                 }
+             
+                
+            }
+            Paragraph totalPecas = new Paragraph("Total de Peças Utilizadas: R$" + vlprodutos.getText());
+            documento.add(totalPecas);
+            Paragraph div = new Paragraph("_______________________________________________________________________");
+            documento.add(div);
+            Paragraph valor = new Paragraph("Valor Total: R$" + total.getText());
+            documento.add(valor);
+        }
+        }catch (FileNotFoundException | DocumentException ex) {
+            JOptionPane.showMessageDialog(null, "erro ao gerar o pdf " + ex);
+        } finally {
+            documento.close();
+        }
+         try {
+            Desktop.getDesktop().open(new File("vendaservico.pdf")); // vai abrir o pdf assim que for gerado
+        } catch (IOException ex) {
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void vlprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vlprodutosActionPerformed
     
     }//GEN-LAST:event_vlprodutosActionPerformed
@@ -317,13 +588,48 @@ public class TelaVendaServico extends javax.swing.JFrame {
        
         if(txtos.getText().trim().isEmpty() || vlprodutos.getText().trim().isEmpty() || vlmaodeobra.getText().trim().isEmpty() || total.getText().trim().isEmpty()){
            JOptionPane.showMessageDialog(null, "Campos Vazios");
+        }
+        else if(jtDinheiro.getText().trim().isEmpty() && jtDebito.getText().trim().isEmpty() && jtCredito.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Escolha a Forma de Pagamento");
         }else{
+           float dinheiro = ParseFloat(jtDinheiro.getText());
+            float debito = ParseFloat(jtDebito.getText());
+            float credito = ParseFloat(jtCredito.getText());
+            float soma=0.0f;
+            
+
+            int vezes = 0;
+            float totall =0;
+            totall = ParseFloat(total.getText());
+            if(jCheckBox1.isSelected()){
+            soma += dinheiro;
+            
+            }
+            if(jCheckBox3.isSelected()){
+            soma += debito;
+            
+            }
+            if(jCheckBox2.isSelected()){
+             
+               if(jRadioButton1.isSelected()){
+                  soma+=credito;
+                  vezes = 1;
+               }else if(jRadioButton2.isSelected()){
+                 soma+=credito * 2;
+                 vezes = 2;
+               }else if(jRadioButton3.isSelected()){
+                 soma+=credito * 3;
+                 vezes = 3;
+               }
+            }  
+          if(soma==totall){ 
           int id_os = Integer.parseInt(txtos.getText()); 
           float totalValor = Float.parseFloat(total.getText());
        
           String horas =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 3).toString();
           String desc =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 4).toString();
           String nome =jVendaServicos.getValueAt(jVendaServicos.getSelectedRow(), 1).toString();
+          
           VendaServicoDAO dao = new VendaServicoDAO();
           VendaServico v = new VendaServico();
           
@@ -333,10 +639,71 @@ public class TelaVendaServico extends javax.swing.JFrame {
           v.setHoras(horas);
           v.setNome(nome);
           dao.create(v);
+          gerarPdf();
           limpaCampos();
-          readJTable();
+         // readJTable();
+       }if(soma<totall){
+        JOptionPane.showMessageDialog(null,"Valor informado menor que o total!!");
+          
+       }if(soma>totall){
+          JOptionPane.showMessageDialog(null,"Valor informado maior que o total!!");
        }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    float ParseFloat(String strNumber) {
+       if (strNumber != null && strNumber.length() > 0) {
+          try {
+             return Float.parseFloat(strNumber);
+          } catch(Exception e) {
+             return -1;   // or some value to mark this field is wrong. or make a function validates field first ...
+           }
+       }
+         else return 0;
+    }
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        boolean Selecionado = jCheckBox1.isSelected();
+
+        if (Selecionado) {
+            jtDinheiro.setEnabled(true);
+        } else {
+            jtDinheiro.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void jCheckBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox3ItemStateChanged
+        boolean Selecionado = jCheckBox3.isSelected();
+
+        if (Selecionado) {
+            jtDebito.setEnabled(true);
+        } else {
+            jtDebito.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox3ItemStateChanged
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+        boolean Selecionado = jCheckBox2.isSelected();
+
+        if (Selecionado) {
+            jtCredito.setEnabled(true);
+            jRadioButton1.setEnabled(true);
+            jRadioButton2.setEnabled(true);
+            jRadioButton3.setEnabled(true);
+        } else {
+            jtCredito.setEnabled(false);
+            jRadioButton1.setEnabled(false);
+            jRadioButton2.setEnabled(false);
+            jRadioButton3.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox2ItemStateChanged
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
     
     public void limpaCampos(){
       
@@ -345,7 +712,18 @@ public class TelaVendaServico extends javax.swing.JFrame {
        vlprodutos.setText("");
        vlmaodeobra.setText("");
        total.setText("");
-    
+       jtDinheiro.setText("");
+       jtDebito.setText("");
+       jtCredito.setText("");
+       jtDinheiro.setEnabled(false);
+       jtDebito.setEnabled(false);
+       jtCredito.setEnabled(false);
+       jRadioButton1.setEnabled(false);
+       jRadioButton2.setEnabled(false);
+       jRadioButton3.setEnabled(false);
+       jCheckBox1.setSelected(false); 
+       jCheckBox2.setSelected(false);
+       jCheckBox3.setSelected(false); 
     
       
     }
@@ -387,16 +765,27 @@ public class TelaVendaServico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jVendaServicos;
+    private javax.swing.JTextField jtCredito;
+    private javax.swing.JTextField jtDebito;
+    private javax.swing.JTextField jtDinheiro;
     private javax.swing.JTextField total;
     private javax.swing.JTextField txtos;
     private javax.swing.JTextField vlmaodeobra;

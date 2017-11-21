@@ -179,6 +179,27 @@ public class EstoqueProdutoDAO {
         }
 
       }
+      
+       public void selectCodQtde(int qtd,int cod){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       
+        try {
+
+            stmt = con.prepareStatement("UPDATE produto set quantidade = quantidade - ? where idproduto = ?");
+            stmt.setInt(1,qtd);
+            stmt.setInt(2,cod);             
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel realizar baixa no estoque -> "+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+      }
         
      public float SelectValor(int cod){
        Connection con = ConnectionFactory.getConnection();
@@ -206,5 +227,34 @@ public class EstoqueProdutoDAO {
         
         
 
+    }
+     
+      public List<Produto> readWhereId(int cod){
+       Connection con = ConnectionFactory.getConnection();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       List<Produto> produtos = new ArrayList<>();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM produto where idproduto = ?");
+            stmt.setInt(1,cod);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("idproduto"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+                produto.setValor(rs.getFloat("valor"));
+                produto.setData_entrada(rs.getString("data_entrada"));
+                produtos.add(produto);
+       }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel trazer os resultados"+ex);
+        }finally{
+           ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return produtos;
     }
 }
