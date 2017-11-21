@@ -87,6 +87,60 @@ public class JavaMailApp
            
             return check;
           }
+    
+    public boolean emailfunc(String email,String cliente,String tel,int os){      
+      
+              
+           /* String msg = "<html>"+
+                            "<META http-equiv=Content-Type content=\"text/html; charset=iso-8859-1\">"+
+                            "Olá,<br><br> Essa é sua senha temporária para acessar nosso sistema :<br> "+newsenha+"</b>"+
+                            " <br><br><hr><b>EQUIPE FOR SOLUTIONS.</b></html>";*/
+           
+           String msg = "Olá,\n\n"+
+                        "Temos um serviço realizado, entre em contato com o cliente "+cliente+" para que ele possa retirar - ló.\n"+
+                        "Informações:\n"+
+                        "Cliente: "+cliente+"\n"+
+                        "Contato: "+tel+"\n"+
+                        "Número de O.S.: "+os+"\n\n"+
+                        "att, \nEQUIPE FOR SOLUTIONS";
+              
+            boolean check = false;
+            Properties props = new Properties();
+            /** Parâmetros de conexão com servidor Gmail */
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.port", "465");
+
+            Session session = Session.getDefaultInstance(props,
+                        new javax.mail.Authenticator() {
+                             protected PasswordAuthentication getPasswordAuthentication() 
+                             {
+                                   return new PasswordAuthentication("garotosqueprogramam@gmail.com", "ledonmoleton");
+                             }
+                        });
+            /** Ativa Debug para sessão */
+            session.setDebug(true);
+            try {
+
+                  Message message = new MimeMessage(session);
+                  message.setFrom(new InternetAddress("garotosqueprogramam@gmail.com")); //Remetente
+
+                  Address[] toUser = InternetAddress //Destinatário(s)
+                             .parse(email);  
+                  message.setRecipients(Message.RecipientType.TO, toUser);
+                  message.setSubject("Novo Serviço Realizado");//Assunto
+                  message.setText(msg);
+                  /**Método para enviar a mensagem criada*/
+                  Transport.send(message);
+                  check = true;
+             } catch (MessagingException e) {
+                  throw new RuntimeException(e);                  
+            }
+           
+            return check;
+          }
       
     
 }
