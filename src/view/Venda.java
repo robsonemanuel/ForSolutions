@@ -49,7 +49,7 @@ public class Venda extends javax.swing.JFrame {
         initComponents();
         EstoqueProdutoDAO dao = new EstoqueProdutoDAO();
         
-        for(Produto p: dao.readOrderByAsc()){
+        for(Produto p: dao.read()){
                 cbprodutos.addItem(p);
                 
         }
