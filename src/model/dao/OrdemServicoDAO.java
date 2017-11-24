@@ -88,7 +88,7 @@ public class OrdemServicoDAO {
        
         try {
            
-            stmt = con.prepareStatement("select * from ordem_servico WHERE finalizada IS NULL");
+            stmt = con.prepareStatement("select o.id_ordem_servico,o.descri_prod,o.descri_def,c.nome_cliente as nome_cliente from ordem_servico as o INNER JOIN cliente as c ON c.id_cliente = o.idcliente WHERE finalizada IS NULL");
             rs = stmt.executeQuery();
              while(rs.next()){
                os =  new Ordem_Servico();
