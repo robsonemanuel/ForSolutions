@@ -41,7 +41,8 @@ public class CadastroProduto extends javax.swing.JFrame {
                p.getDescricao(),
                p.getQuantidade(),
                p.getValor(),
-               p.getData_entrada()
+               p.getData_entrada(),
+               p.getTipo()
             });
          }
        
@@ -58,7 +59,8 @@ public class CadastroProduto extends javax.swing.JFrame {
                p.getDescricao(),
                p.getQuantidade(),
                p.getValor(),
-               p.getData_entrada()
+               p.getData_entrada(),
+               p.getTipo()
             });
          }
        
@@ -72,6 +74,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         txtDesc = new javax.swing.JTextField();
         txtQtd = new javax.swing.JTextField();
@@ -84,6 +87,9 @@ public class CadastroProduto extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtBuscaDesc = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTProdutos = new javax.swing.JTable();
@@ -125,6 +131,24 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Tipo");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Produto");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Componente");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,19 +156,6 @@ public class CadastroProduto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jButton1)
@@ -155,7 +166,28 @@ public class CadastroProduto extends javax.swing.JFrame {
                         .addGap(56, 56, 56)
                         .addComponent(txtBuscaDesc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,7 +203,12 @@ public class CadastroProduto extends javax.swing.JFrame {
                     .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -186,11 +223,11 @@ public class CadastroProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "DESCRIÇÃO", "QTD", "PREÇO", "Data de Entrada"
+                "ID", "DESCRIÇÃO", "QTD", "PREÇO", "DATA DE ENTRADA", "TIPO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -240,20 +277,50 @@ public class CadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(verifica()){
         Produto p = new Produto();
         EstoqueProdutoDAO dao = new EstoqueProdutoDAO();
         p.setDescricao(txtDesc.getText());
         p.setQuantidade(Integer.parseInt(txtQtd.getText()));
         p.setValor(Float.parseFloat(txtPreco.getText()));
+        String tipo="";
+         if(jRadioButton1.isSelected()){
+            tipo = "Produto";
+         }else if(jRadioButton2.isSelected()){
+            tipo = "Componente";
+         }
+        p.setTipo(tipo);
         dao.create(p);
         
         txtDesc.setText("");
         txtQtd.setText("");
         txtPreco.setText("");
+        buttonGroup1.clearSelection();
         readJTable();
-                
+        }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private boolean verifica(){
+        boolean check = true;
+        if(txtDesc.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Preencha a Descrição do Produto.");
+            check = false;
+        }
+        else if(txtQtd.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Preencha a quantidade do Produto");
+            check = false;
+        }
+        else if(txtPreco.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Preencha o Valor Unitario do Produto");
+            check = false;
+        }
+        else if(jRadioButton1.isSelected() == false && jRadioButton2.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Preencha o tipo do Produto");
+            check = false;
+        }
+        return check;
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
           if (jTProdutos.getSelectedRow() != -1) {
 
@@ -267,7 +334,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             txtDesc.setText("");
             txtQtd.setText("");
             txtPreco.setText("");
-
+            buttonGroup1.clearSelection();
             readJTable();
 
         } else {
@@ -283,6 +350,13 @@ public class CadastroProduto extends javax.swing.JFrame {
             txtDesc.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 1).toString());
             txtQtd.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 2).toString());
             txtPreco.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 3).toString());
+            String tipo = jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 5).toString();
+            if(tipo.equals("Produto")){
+                jRadioButton1.setSelected(true);
+            }
+            if(tipo.equals("Componente")){
+                jRadioButton2.setSelected(true);
+            }
 
         }
 
@@ -311,8 +385,11 @@ public class CadastroProduto extends javax.swing.JFrame {
                 txtDesc.setText("");
                 txtQtd.setText("");
                 txtPreco.setText("");
+                buttonGroup1.clearSelection();
                 readJTable();
-         }       
+         }else {
+            JOptionPane.showMessageDialog(null, "Selecione um produto para alterar.");
+        }        
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -323,6 +400,14 @@ public class CadastroProduto extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,6 +448,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -370,8 +456,11 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTProdutos;
     private javax.swing.JTextField txtBuscaDesc;

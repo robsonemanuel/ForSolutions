@@ -20,10 +20,11 @@ public class EstoqueProdutoDAO {
        PreparedStatement stmt = null;
        
         try {
-            stmt = con.prepareStatement("INSERT INTO produto(descricao,quantidade,valor) VALUES(?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO produto(descricao,quantidade,valor,tipo) VALUES(?,?,?,?)");
             stmt.setString(1,p.getDescricao());
             stmt.setInt(2,p.getQuantidade());
             stmt.setFloat(3,p.getValor());
+            stmt.setString(4, p.getTipo());
             
             stmt.executeUpdate();
             
@@ -52,6 +53,7 @@ public class EstoqueProdutoDAO {
                 produto.setQuantidade(rs.getInt("quantidade"));
                 produto.setValor(rs.getFloat("valor"));
                 produto.setData_entrada(rs.getString("data_entrada"));
+                produto.setTipo(rs.getString("tipo"));
                 produtos.add(produto);
        }
         } catch (SQLException ex) {
@@ -71,7 +73,7 @@ public class EstoqueProdutoDAO {
        
        List<Produto> produtos = new ArrayList<>();
         try {
-            stmt = con.prepareStatement("SELECT * FROM produto ORDER BY descricao");
+            stmt = con.prepareStatement("SELECT * FROM produto WHERE tipo = 'Componente' ORDER BY descricao");
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -149,6 +151,7 @@ public class EstoqueProdutoDAO {
                 produto.setQuantidade(rs.getInt("quantidade"));
                 produto.setValor(rs.getFloat("valor"));
                 produto.setData_entrada(rs.getString("data_entrada"));
+                produto.setTipo(rs.getString("tipo"));
                 produtos.add(produto);
        }
         } catch (SQLException ex) {

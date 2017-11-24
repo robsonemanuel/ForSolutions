@@ -8,18 +8,19 @@ public class Produto {
     private int quantidade;
     private float valor;
     private String data_entrada;
-    
+    private String tipo;
     
     public Produto() {
     }
     
 
-    public Produto(int id, String descricao, int quantidade, float valor,String data_entrada) {
+    public Produto(int id, String descricao, int quantidade, float valor,String data_entrada,String tipo) {
         this.id = id;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.valor = valor;
         this.data_entrada = data_entrada;
+        this.tipo = tipo;
     }
 
     public int getId() {
@@ -60,6 +61,14 @@ public class Produto {
 
     public void setData_entrada(String data_entrada) {
         this.data_entrada = data_entrada;
+    }
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
     public String toString(){
